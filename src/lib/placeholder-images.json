@@ -27,25 +27,25 @@
     {
       "id": "game_bgmi",
       "description": "Icon for BGMI game",
-      "imageUrl": "https://images.unsplash.com/photo-1760205013859-962e67576472?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzb2xkaWVyJTIwYmF0dGxlfGVufDB8fHx8MTc2MjcyMjQxN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1746289222137-46fe38e4c9e8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzb2xkaWVyJTIwYmF0dGxlfGVufDB8fHx8MTc2MjcyMjQxN3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "soldier battle"
     },
     {
       "id": "game_ludo",
       "description": "Icon for Ludo King game",
-      "imageUrl": "https://images.unsplash.com/photo-1642056445424-fc9059cb737a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxsdWRvJTIwYm9hcmR8ZW58MHx8fHwxNzYyNzA3Njc1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1595744043037-68de3376ed59?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxsdWRvJTIwYm9hcmR8ZW58MHx8fHwxNzYyNzA3Njc1fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "ludo board"
     },
     {
       "id": "game_carrom",
       "description": "Icon for Carrom game",
-      "imageUrl": "https://images.unsplash.com/photo-1652558973197-498325ed3758?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxjYXJyb20lMjBib2FyZHxlbnwwfHx8fDE3NjI2Nzc5Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1652558973276-365360d5024a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjYXJyb20lMjBib2FyZHxlbnwwfHx8fDE3NjI2Nzc5Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "carrom board"
     },
     {
       "id": "game_snl",
       "description": "Icon for Snake & Ladder game",
-      "imageUrl": "https://images.unsplash.com/photo-1642056445470-18b1da13f81f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzbmFrZSUyMGxhZGRlcnxlbnwwfHx8fDE3NjI3MjI0MTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1595744043037-68de3376ed59?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzbmFrZSUyMGxhZGRlcnxlbnwwfHx8fDE3NjI3MjI0MTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "snake ladder"
     },
     {
@@ -57,43 +57,385 @@
     {
       "id": "game_metro",
       "description": "Icon for Metro Surface game",
-      "imageUrl": "https://images.unsplash.com/photo-1533107844583-a9a3b4f621e2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdWJ3YXklMjB0cmFpbnxlbnwwfHx8fDE3NjI3MjI0MTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1550596718-d9076b3287b1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzdWJ3YXklMjB0cmFpbnxlbnwwfHx8fDE3NjI2NDU4MzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "subway train"
     },
     {
       "id": "game_poker",
       "description": "Icon for Poker game",
-      "imageUrl": "https://images.unsplash.com/photo-1517232115160-ff93364542dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwb2tlciUyMGdhbWV8ZW58MHx8fHwxNzYyNjQyMTAxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1667833719242-8664faf89941?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwb2tlciUyMGdhbWV8ZW58MHx8fHwxNzYyNjQyMTAxfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "poker game"
     },
     {
       "id": "game_pool",
       "description": "Icon for 8 Ball Pool game",
-      "imageUrl": "https://images.unsplash.com/photo-1624827637654-84cd4877717e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwb29sJTIwdGFibGV8ZW58MHx8fHwxNzYyNjk2OTA0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1738411186017-bbd1bf636c8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxwb29sJTIwdGFibGV8ZW58MHx8fHwxNzYyNjk2OTA0fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "pool table"
     },
     {
       "id": "game_fruit",
       "description": "Icon for Fruit Samurai game",
-      "imageUrl": "https://images.unsplash.com/photo-1592498642474-74f9ee88248d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzbGljaW5nJTIwZnJ1aXR8ZW58MHx8fHwxNzYyNzIzMjEwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1595812768278-e424b23419d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxzbGljaW5nJTIwZnJ1aXR8ZW58MHx8fHwxNzYyNzIzMjEwfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "slicing fruit"
+    },
+    {
+      "id": "game_teen_patti",
+      "description": "Icon for Teen Patti game",
+      "imageUrl": "https://images.unsplash.com/photo-1601162937667-08f083516d57?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxjYXJkJTIwZ2FtZXxlbnwwfHx8fDE3NjI3MjM1Mjh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "card game"
+    },
+    {
+      "id": "game_call_break",
+      "description": "Icon for Call Break game",
+      "imageUrl": "https://images.unsplash.com/photo-1617286931389-9082553de6be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjYXJkJTIwZ2FtZXxlbnwwfHx8fDE3NjI3MjM1Mjh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "card game"
+    },
+    {
+      "id": "game_solitaire",
+      "description": "Icon for Solitaire game",
+      "imageUrl": "https://images.unsplash.com/photo-1503482618211-c70b46ede8b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjYXJkJTIwZ2FtZXxlbnwwfHx8fDE3NjI3MjM1Mjh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "card game"
+    },
+    {
+      "id": "game_knife_up",
+      "description": "Icon for Knife Up game",
+      "imageUrl": "https://images.unsplash.com/photo-1644077698042-53a59a24ce1e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxhcmNhZGUlMjBnYW1lfGVufDB8fHx8MTc2MjYyMTI3Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "arcade game"
+    },
+    {
+      "id": "game_bubble_shooter",
+      "description": "Icon for Bubble Shooter game",
+      "imageUrl": "https://images.unsplash.com/photo-1623050554270-b39a3986e22c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxwdXp6bGUlMjBnYW1lfGVufDB8fHx8MTc2MjY2ODI5NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "puzzle game"
+    },
+    {
+      "id": "game_archery",
+      "description": "Icon for Archery King game",
+      "imageUrl": "https://images.unsplash.com/photo-1417716226287-2f8cd2e80274?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzcG9ydHMlMjBnYW1lfGVufDB8fHx8MTc2MjcyMzUyOHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sports game"
+    },
+    {
+      "id": "game_cricket",
+      "description": "Icon for Fantasy Cricket game",
+      "imageUrl": "https://images.unsplash.com/photo-1616562007889-186b6cf7fb53?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxzcG9ydHMlMjBnYW1lfGVufDB8fHx8MTc2MjcyMzUyOHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sports game"
+    },
+    {
+      "id": "game_chess",
+      "description": "Icon for Chess game",
+      "imageUrl": "https://images.unsplash.com/photo-1629760946220-5693ee4c46ac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxib2FyZCUyMGdhbWV8ZW58MHx8fHwxNzYyNzIyNDE3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "board game"
+    },
+    {
+      "id": "game_air_hockey",
+      "description": "Icon for Air Hockey game",
+      "imageUrl": "https://images.unsplash.com/photo-1583634852966-130c15654305?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxhcmNhZGUlMjBnYW1lfGVufDB8fHx8MTc2MjYyMTI3Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "arcade game"
+    },
+    {
+      "id": "game_tank",
+      "description": "Icon for Tank Battle game",
+      "imageUrl": "https://images.unsplash.com/photo-1759701548118-ec71579cad22?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxhY3Rpb24lMjBnYW1lfGVufDB8fHx8MTc2MjcyMzUyOHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "action game"
+    },
+    {
+      "id": "game_racing",
+      "description": "Icon for Racing Clash game",
+      "imageUrl": "https://images.unsplash.com/photo-1761637517696-822560e613d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxyYWNpbmclMjBnYW1lfGVufDB8fHx8MTc2MjY4OTY2NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "racing game"
+    },
+    {
+      "id": "game_space_hunter",
+      "description": "Icon for Space Hunter game",
+      "imageUrl": "https://images.unsplash.com/photo-1759701548118-ec71579cad22?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxhY3Rpb24lMjBnYW1lfGVufDB8fHx8MTc2MjcyMzUyOHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "action game"
+    },
+    {
+      "id": "game_zombie",
+      "description": "Icon for Zombie Smash game",
+      "imageUrl": "https://images.unsplash.com/photo-1761164034378-573f87613427?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxhY3Rpb24lMjBnYW1lfGVufDB8fHx8MTc2MjcyMzUyOHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "action game"
+    },
+    {
+      "id": "game_fish",
+      "description": "Icon for Fish Frenzy game",
+      "imageUrl": "https://images.unsplash.com/photo-1758874384597-92297e5423ae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxjYXN1YWwlMjBnYW1lfGVufDB8fHx8MTc2MjcyMzUyOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "casual game"
+    },
+    {
+      "id": "game_block_puzzle",
+      "description": "Icon for Block Puzzle game",
+      "imageUrl": "https://images.unsplash.com/photo-1623050554270-b39a3986e22c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxwdXp6bGUlMjBnYW1lfGVufDB8fHx8MTc2MjY2ODI5NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "puzzle game"
+    },
+    {
+      "id": "game_jungle_run",
+      "description": "Icon for Jungle Run game",
+      "imageUrl": "https://images.unsplash.com/photo-1636072237628-4dec9190cfe3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxydW5uaW5nJTIwZ2FtZXxlbnwwfHx8fDE3NjI3MjM1Mjh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "running game"
+    },
+    {
+      "id": "game_candy",
+      "description": "Icon for Candy Crush game",
+      "imageUrl": "https://images.unsplash.com/photo-1703685433134-9c88ac8a4724?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwdXp6bGUlMjBnYW1lfGVufDB8fHx8MTc2MjY2ODI5NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "puzzle game"
+    },
+    {
+      "id": "game_mine_runner",
+      "description": "Icon for Mine Runner game",
+      "imageUrl": "https://images.unsplash.com/photo-1721441905204-ea1b56b9d7d3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxydW5uaW5nJTIwZ2FtZXxlbnwwfHx8fDE3NjI3MjM1Mjh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "running game"
+    },
+    {
+      "id": "game_street_racer",
+      "description": "Icon for Street Racer game",
+      "imageUrl": "https://images.unsplash.com/photo-1597523535985-ecae0b9b1d22?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cmFjaW5nJTIwZ2FtZXxlbnwwfHx8fDE3NjI2ODk2NjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "racing game"
+    },
+    {
+      "id": "game_plane",
+      "description": "Icon for Plane Mayhem game",
+      "imageUrl": "https://images.unsplash.com/photo-1746826092606-ffbcac530b89?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxhY3Rpb24lMjBnYW1lfGVufDB8fHx8MTc2MjcyMzUyOHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "action game"
+    },
+    {
+      "id": "game_ship_wars",
+      "description": "Icon for Ship Wars game",
+      "imageUrl": "https://images.unsplash.com/photo-1723074832950-9fb031b0f4ec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxhY3Rpb24lMjBnYW1lfGVufDB8fHx8MTc2MjcyMzUyOHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "action game"
+    },
+    {
+      "id": "game_dominoes",
+      "description": "Icon for Dominoes game",
+      "imageUrl": "https://images.unsplash.com/photo-1640461470346-c8b56497850a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxib2FyZCUyMGdhbWV8ZW58MHx8fHwxNzYyNzIyNDE3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "board game"
+    },
+    {
+      "id": "game_backgammon",
+      "description": "Icon for Backgammon game",
+      "imageUrl": "https://images.unsplash.com/photo-1629760946220-5693ee4c46ac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxib2FyZCUyMGdhbWV8ZW58MHx8fHwxNzYyNzIyNDE3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "board game"
+    },
+    {
+      "id": "game_checkers",
+      "description": "Icon for Checkers game",
+      "imageUrl": "https://images.unsplash.com/photo-1611891487122-207579d67d98?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxib2FyZCUyMGdhbWV8ZW58MHx8fHwxNzYyNzIyNDE3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "board game"
+    },
+    {
+      "id": "game_crazy_eights",
+      "description": "Icon for Crazy 8s game",
+      "imageUrl": "https://images.unsplash.com/photo-1617286931389-9082553de6be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjYXJkJTIwZ2FtZXxlbnwwfHx8fDE3NjI3MjM1Mjh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "card game"
+    },
+    {
+      "id": "game_go_fish",
+      "description": "Icon for Go Fish game",
+      "imageUrl": "https://images.unsplash.com/photo-1614096602618-38a342f139c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjYXJkJTIwZ2FtZXxlbnwwfHx8fDE3NjI3MjM1Mjh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "card game"
+    },
+    {
+      "id": "game_hearts",
+      "description": "Icon for Hearts game",
+      "imageUrl": "https://images.unsplash.com/photo-1646809014367-2c267bcba69f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxjYXJkJTIwZ2FtZXxlbnwwfHx8fDE3NjI3MjM1Mjh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "card game"
+    },
+    {
+      "id": "game_spades",
+      "description": "Icon for Spades game",
+      "imageUrl": "https://images.unsplash.com/photo-1660807304251-9e2012336d19?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjYXJkJTIwZ2FtZXxlbnwwfHx8fDE3NjI3MjM1Mjh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "card game"
+    },
+    {
+      "id": "game_bridge",
+      "description": "Icon for Bridge game",
+      "imageUrl": "https://images.unsplash.com/photo-1541278107931-e006523892df?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXJkJTIwZ2FtZXxlbnwwfHx8fDE3NjI3MjM1Mjh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "card game"
+    },
+    {
+      "id": "game_euchre",
+      "description": "Icon for Euchre game",
+      "imageUrl": "https://images.unsplash.com/photo-1646809014367-2c267bcba69f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxjYXJkJTIwZ2FtZXxlbnwwfHx8fDE3NjI3MjM1Mjh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "card game"
+    },
+    {
+      "id": "game_pinochle",
+      "description": "Icon for Pinochle game",
+      "imageUrl": "https://images.unsplash.com/photo-1501003878151-d3cb87799705?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjYXJkJTIwZ2FtZXxlbnwwfHx8fDE3NjI3MjM1Mjh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "card game"
+    },
+    {
+      "id": "game_canasta",
+      "description": "Icon for Canasta game",
+      "imageUrl": "https://images.unsplash.com/photo-1646809014367-2c267bcba69f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxjYXJkJTIwZ2FtZXxlbnwwfHx8fDE3NjI3MjM1Mjh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "card game"
+    },
+    {
+      "id": "game_gin_rummy",
+      "description": "Icon for Gin Rummy game",
+      "imageUrl": "https://images.unsplash.com/photo-1503482618211-c70b46ede8b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjYXJkJTIwZ2FtZXxlbnwwfHx8fDE3NjI3MjM1Mjh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "card game"
+    },
+    {
+      "id": "game_mahjong",
+      "description": "Icon for Mahjong game",
+      "imageUrl": "https://images.unsplash.com/photo-1632501641765-e568d28b0015?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxib2FyZCUyMGdhbWV8ZW58MHx8fHwxNzYyNzIyNDE3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "board game"
+    },
+    {
+      "id": "game_sudoku",
+      "description": "Icon for Sudoku game",
+      "imageUrl": "https://images.unsplash.com/photo-1709399610754-921b7a9ef3b7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwdXp6bGUlMjBnYW1lfGVufDB8fHx8MTc2MjY2ODI5NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "puzzle game"
+    },
+    {
+      "id": "game_word_finder",
+      "description": "Icon for Word Finder game",
+      "imageUrl": "https://images.unsplash.com/photo-1601987177651-8edfe6c20009?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwdXp6bGUlMjBnYW1lfGVufDB8fHx8MTc2MjY2ODI5NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "puzzle game"
+    },
+    {
+      "id": "game_crossword",
+      "description": "Icon for Crossword game",
+      "imageUrl": "https://images.unsplash.com/photo-1608934827529-e9756c4d7e4c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwdXp6bGUlMjBnYW1lfGVufDB8fHx8MTc2MjY2ODI5NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "puzzle game"
+    },
+    {
+      "id": "game_jigsaw",
+      "description": "Icon for Jigsaw Puzzle game",
+      "imageUrl": "https://images.unsplash.com/photo-1663625318127-bd35dd2e6f75?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwdXp6bGUlMjBnYW1lfGVufDB8fHx8MTc2MjY2ODI5NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "puzzle game"
+    },
+    {
+      "id": "game_memory",
+      "description": "Icon for Memory Game",
+      "imageUrl": "https://images.unsplash.com/photo-1637094410849-96576479b731?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cHV6emxlJTIwZ2FtZXxlbnwwfHx8fDE3NjI2NjgyOTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "puzzle game"
+    },
+    {
+      "id": "game_brick_breaker",
+      "description": "Icon for Brick Breaker game",
+      "imageUrl": "https://images.unsplash.com/photo-1644077698042-53a59a24ce1e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxhcmNhZGUlMjBnYW1lfGVufDB8fHx8MTc2MjYyMTI3Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "arcade game"
+    },
+    {
+      "id": "game_2048",
+      "description": "Icon for 2048 game",
+      "imageUrl": "https://images.unsplash.com/photo-1637094410849-96576479b731?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cHV6emxlJTIwZ2FtZXxlbnwwfHx8fDE3NjI2NjgyOTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "puzzle game"
+    },
+    {
+      "id": "game_tetris",
+      "description": "Icon for Tetris game",
+      "imageUrl": "https://images.unsplash.com/photo-1601063987324-7b482964872b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwdXp6bGUlMjBnYW1lfGVufDB8fHx8MTc2MjY2ODI5NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "puzzle game"
+    },
+    {
+      "id": "game_pacman",
+      "description": "Icon for Pac-Man game",
+      "imageUrl": "https://images.unsplash.com/photo-1625675742564-07701bfbd753?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8YXJjYWRlJTIwZ2FtZXxlbnwwfHx8fDE3NjI2MjEyNzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "arcade game"
+    },
+    {
+      "id": "game_donkey_kong",
+      "description": "Icon for Donkey Kong game",
+      "imageUrl": "https://images.unsplash.com/photo-1511512578047-dfb367046420?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxhcmNhZGUlMjBnYW1lfGVufDB8fHx8MTc2MjYyMTI3Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "arcade game"
+    },
+    {
+      "id": "game_galaga",
+      "description": "Icon for Galaga game",
+      "imageUrl": "https://images.unsplash.com/photo-1635187834534-d1fa994fcabb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhcmNhZGUlMjBnYW1lfGVufDB8fHx8MTc2MjYyMTI3Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "arcade game"
+    },
+    {
+      "id": "game_frogger",
+      "description": "Icon for Frogger game",
+      "imageUrl": "https://images.unsplash.com/photo-1644077698042-53a59a24ce1e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxhcmNhZGUlMjBnYW1lfGVufDB8fHx8MTc2MjYyMTI3Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "arcade game"
+    },
+    {
+      "id": "game_centipede",
+      "description": "Icon for Centipede game",
+      "imageUrl": "https://images.unsplash.com/photo-1572289758057-3e0f4327833b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhcmNhZGUlMjBnYW1lfGVufDB8fHx8MTc2MjYyMTI3Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "arcade game"
+    },
+    {
+      "id": "game_missile_command",
+      "description": "Icon for Missile Command game",
+      "imageUrl": "https://images.unsplash.com/photo-1635187834534-d1fa994fcabb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhcmNhZGUlMjBnYW1lfGVufDB8fHx8MTc2MjYyMTI3Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "arcade game"
+    },
+    {
+      "id": "game_asteroids",
+      "description": "Icon for Asteroids game",
+      "imageUrl": "https://images.unsplash.com/photo-1533237264985-ee62f6d342bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxhcmNhZGUlMjBnYW1lfGVufDB8fHx8MTc2MjYyMTI3Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "arcade game"
+    },
+    {
+      "id": "game_castle_builder",
+      "description": "Icon for Castle Builder game",
+      "imageUrl": "https://images.unsplash.com/photo-1662169847892-565cce8f901c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxzdHJhdGVneSUyMGdhbWV8ZW58MHx8fHwxNzYyNzIzNTI5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "strategy game"
+    },
+    {
+      "id": "game_cookie_clicker",
+      "description": "Icon for Cookie Clicker game",
+      "imageUrl": "https://images.unsplash.com/photo-1759868937448-423d3c7c8133?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjYXN1YWwlMjBnYW1lfGVufDB8fHx8MTc2MjcyMzUyOHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "casual game"
+    },
+    {
+      "id": "game_diner_dash",
+      "description": "Icon for Diner Dash game",
+      "imageUrl": "https://images.unsplash.com/photo-1759491978401-1dc6f38b6780?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjYXN1YWwlMjBnYW1lfGVufDB8fHx8MTc2MjcyMzUyOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "casual game"
+    },
+    {
+      "id": "game_donut_drop",
+      "description": "Icon for Donut Drop game",
+      "imageUrl": "https://images.unsplash.com/photo-1506633541287-7c7544a7a706?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y2FzdWFsJTIwZ2FtZXxlbnwwfHx8fDE3NjI3MjM1Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "casual game"
+    },
+    {
+      "id": "game_egg_catch",
+      "description": "Icon for Egg Catch game",
+      "imageUrl": "https://images.unsplash.com/photo-1759491978401-1dc6f38b6780?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjYXN1YWwlMjBnYW1lfGVufDB8fHx8MTc2MjcyMzUyOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "casual game"
+    },
+    {
+      "id": "game_gift_grab",
+      "description": "Icon for Gift Grab game",
+      "imageUrl": "https://images.unsplash.com/photo-1759868937448-423d3c7c8133?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjYXN1YWwlMjBnYW1lfGVufDB8fHx8MTc2MjcyMzUyOHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "casual game"
+    },
+    {
+      "id": "game_cake_maker",
+      "description": "Icon for Cake Maker game",
+      "imageUrl": "https://images.unsplash.com/photo-1759491978401-1dc6f38b6780?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjYXN1YWwlMjBnYW1lfGVufDB8fHx8MTc2MjcyMzUyOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "casual game"
+    },
+    {
+      "id": "game_key_quest",
+      "description": "Icon for Key Quest game",
+      "imageUrl": "https://images.unsplash.com/photo-1703685433134-9c88ac8a4724?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwdXp6bGUlMjBnYW1lfGVufDB8fHx8MTc2MjY2ODI5NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "puzzle game"
     },
     {
       "id": "offer_rummy",
       "description": "Icon for a Rummy app promotion",
-      "imageUrl": "https://images.unsplash.com/photo-1667833719253-8b61c950e16b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXJkcyUyMGdhbWV8ZW58MHx8fHwxNzYyNjg2NzU0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1743574318769-edabd8a33d0b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y2FyZHMlMjBnYW1lfGVufDB8fHx8MTc2MjY4Njc1NHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "cards game"
     },
     {
       "id": "offer_fantasy",
       "description": "Icon for a Fantasy Cricket app promotion",
-      "imageUrl": "https://images.unsplash.com/photo-1675693303492-9a5bc898bf94?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjcmlja2V0JTIwc3RhZGl1bXxlbnwwfHx8fDE3NjI3MTIwMzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1512719994953-eabf50895df7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjcmlja2V0JTIwc3RhZGl1bXxlbnwwfHx8fDE3NjI3MTIwMzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "cricket stadium"
     },
     {
       "id": "user_profile_1",
       "description": "Profile picture for user Jahidul SK",
-      "imageUrl": "https://images.unsplash.com/photo-1648736958748-a0978b01da0a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxnYW1lciUyMHBvcnRyYWl0fGVufDB8fHx8MTc2MjY5NjE3OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1642976507711-77bc1efa2067?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxnYW1lciUyMHBvcnRyYWl0fGVufDB8fHx8MTc2MjY5NjE3OXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "gamer portrait"
     }
   ]
