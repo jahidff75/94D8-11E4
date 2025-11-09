@@ -7,6 +7,7 @@ import {
   Car,
   Bot,
   CircleDollarSign,
+  TramFront,
 } from "lucide-react";
 import {
   Carousel,
@@ -35,6 +36,8 @@ export default function Home() {
         return <Car className="w-8 h-8 text-red-500" />;
       case "Snake & Ladder":
         return <Bot className="w-8 h-8 text-blue-500" />;
+      case "Metro Surface":
+        return <TramFront className="w-8 h-8 text-slate-500" />;
       default:
         return <Swords className="w-8 h-8 text-primary" />;
     }
@@ -192,23 +195,6 @@ export default function Home() {
           </div>
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
-      </section>
-
-      {/* Refer & Earn Banner */}
-      <section className="px-4">
-        <div className="rounded-lg bg-gradient-to-r from-primary to-purple-600 p-6 text-primary-foreground text-center">
-          <h2 className="text-2xl font-bold">Invite a Friend</h2>
-          <p className="mt-1">
-            & Earn <span className="font-bold text-accent">₹100</span> Bonus
-            Cash!
-          </p>
-          <Button
-            variant="outline"
-            className="mt-4 bg-transparent border-accent text-accent hover:bg-accent/20"
-          >
-            Invite Now
-          </Button>
-        </div>
       </section>
     </div>
   );
