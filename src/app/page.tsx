@@ -219,32 +219,33 @@ export default function Home() {
       <section className="px-4">
         <div className="grid grid-cols-3 gap-4">
           {games.map((game) => (
-            <Card
-              key={game.id}
-              className="group overflow-hidden relative border-border hover:border-primary transition-all duration-300"
-            >
-              <CardContent className="flex flex-col items-center justify-center p-0">
-                <div className="w-full aspect-square relative">
-                    <Image
-                      src={getGameImage(game.id)}
-                      alt={game.name}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      data-ai-hint={getGameImageHint(game.id)}
-                    />
-                     <div className="absolute top-1 right-1 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full animate-pulse">
-                        LIVE
-                    </div>
-                </div>
+            <Link href={`/games/${game.id}`} key={game.id}>
+              <Card
+                className="group overflow-hidden relative border-border hover:border-primary transition-all duration-300"
+              >
+                <CardContent className="flex flex-col items-center justify-center p-0">
+                  <div className="w-full aspect-square relative">
+                      <Image
+                        src={getGameImage(game.id)}
+                        alt={game.name}
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        data-ai-hint={getGameImageHint(game.id)}
+                      />
+                       <div className="absolute top-1 right-1 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full animate-pulse">
+                          LIVE
+                      </div>
+                  </div>
 
-                <div className="p-3 text-center w-full bg-card/80 backdrop-blur-sm">
-                  <h3 className="font-semibold truncate text-sm">{game.name}</h3>
-                  <p className="text-xs text-muted-foreground">
-                    {game.liveMatches} Matches
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+                  <div className="p-3 text-center w-full bg-card/80 backdrop-blur-sm">
+                    <h3 className="font-semibold truncate text-sm">{game.name}</h3>
+                    <p className="text-xs text-muted-foreground">
+                      {game.liveMatches} Matches
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
       </section>
@@ -299,5 +300,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
