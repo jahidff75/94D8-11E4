@@ -1,3 +1,76 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "banner_freefire",
+      "description": "A dynamic banner for a Free Fire tournament",
+      "imageUrl": "https://images.unsplash.com/photo-1759709867188-7d94e0041de2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxlc3BvcnRzJTIwdG91cm5hbWVudHxlbnwwfHx8fDE3NjI3MjI0MTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "esports tournament"
+    },
+    {
+      "id": "banner_ludo",
+      "description": "A colorful banner announcing Ludo King",
+      "imageUrl": "https://images.unsplash.com/photo-1611891487122-207579d67d98?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxib2FyZCUyMGdhbWV8ZW58MHx8fHwxNzYyNzIyNDE3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "board game"
+    },
+    {
+      "id": "banner_offer",
+      "description": "A banner for a special deposit offer",
+      "imageUrl": "https://images.unsplash.com/photo-1759160315014-ad338c3c2016?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxtb25leSUyMGdpZnR8ZW58MHx8fHwxNzYyNzIyNDE3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "money gift"
+    },
+    {
+      "id": "game_ff",
+      "description": "Icon for Free Fire game",
+      "imageUrl": "https://images.unsplash.com/photo-1759663177642-01f2fc80f7f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhY3Rpb24lMjBjaGFyYWN0ZXJ8ZW58MHx8fHwxNzYyNzIyNDE3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "action character"
+    },
+    {
+      "id": "game_bgmi",
+      "description": "Icon for BGMI game",
+      "imageUrl": "https://images.unsplash.com/photo-1760205013859-962e67576472?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzb2xkaWVyJTIwYmF0dGxlfGVufDB8fHx8MTc2MjcyMjQxN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "soldier battle"
+    },
+    {
+      "id": "game_ludo",
+      "description": "Icon for Ludo King game",
+      "imageUrl": "https://images.unsplash.com/photo-1642056445424-fc9059cb737a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxsdWRvJTIwYm9hcmR8ZW58MHx8fHwxNzYyNzA3Njc1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "ludo board"
+    },
+    {
+      "id": "game_carrom",
+      "description": "Icon for Carrom game",
+      "imageUrl": "https://images.unsplash.com/photo-1652558973197-498325ed3758?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxjYXJyb20lMjBib2FyZHxlbnwwfHx8fDE3NjI2Nzc5Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "carrom board"
+    },
+    {
+      "id": "game_snl",
+      "description": "Icon for Snake & Ladder game",
+      "imageUrl": "https://images.unsplash.com/photo-1642056445470-18b1da13f81f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzbmFrZSUyMGxhZGRlcnxlbnwwfHx8fDE3NjI3MjI0MTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "snake ladder"
+    },
+    {
+      "id": "game_rummy",
+      "description": "Icon for Rummy game",
+      "imageUrl": "https://images.unsplash.com/photo-1501003878151-d3cb87799705?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cGxheWluZyUyMGNhcmRzfGVufDB8fHx8MTc2MjcwODAwOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "playing cards"
+    },
+    {
+      "id": "offer_rummy",
+      "description": "Icon for a Rummy app promotion",
+      "imageUrl": "https://images.unsplash.com/photo-1667833719253-8b61c950e16b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXJkcyUyMGdhbWV8ZW58MHx8fHwxNzYyNjg2NzU0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cards game"
+    },
+    {
+      "id": "offer_fantasy",
+      "description": "Icon for a Fantasy Cricket app promotion",
+      "imageUrl": "https://images.unsplash.com/photo-1675693303492-9a5bc898bf94?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjcmlja2V0JTIwc3RhZGl1bXxlbnwwfHx8fDE3NjI3MTIwMzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cricket stadium"
+    },
+    {
+      "id": "user_profile_1",
+      "description": "Profile picture for user Jahidul SK",
+      "imageUrl": "https://images.unsplash.com/photo-1648736958748-a0978b01da0a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxnYW1lciUyMHBvcnRyYWl0fGVufDB8fHx8MTc2MjY5NjE3OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "gamer portrait"
+    }
+  ]
 }
