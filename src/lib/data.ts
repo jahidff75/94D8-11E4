@@ -45,6 +45,9 @@ export const games = [
   { id: "game_snl", name: "Snake & Ladder", liveMatches: 2 },
   { id: "game_rummy", name: "Rummy", liveMatches: 20 },
   { id: "game_metro", name: "Metro Surface", liveMatches: 4 },
+  { id: "game_poker", name: "Poker", liveMatches: 15 },
+  { id: "game_pool", name: "8 Ball Pool", liveMatches: 10 },
+  { id: "game_fruit", name: "Fruit Samurai", liveMatches: 18 },
 ];
 
 export const offers = [

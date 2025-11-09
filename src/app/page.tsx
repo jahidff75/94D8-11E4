@@ -8,6 +8,9 @@ import {
   Bot,
   CircleDollarSign,
   TramFront,
+  Gem,
+  PocketKnife,
+  BookCopy,
 } from "lucide-react";
 import {
   Carousel,
@@ -38,6 +41,14 @@ export default function Home() {
         return <Bot className="w-8 h-8 text-blue-500" />;
       case "Metro Surface":
         return <TramFront className="w-8 h-8 text-slate-500" />;
+      case "Poker":
+        return <Gem className="w-8 h-8 text-purple-500" />;
+      case "8 Ball Pool":
+        return <CircleDollarSign className="w-8 h-8 text-emerald-500" />;
+      case "Fruit Samurai":
+        return <PocketKnife className="w-8 h-8 text-rose-500" />;
+       case "Rummy":
+        return <BookCopy className="w-8 h-8 text-orange-500" />;
       default:
         return <Swords className="w-8 h-8 text-primary" />;
     }
