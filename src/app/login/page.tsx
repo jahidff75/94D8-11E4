@@ -38,6 +38,14 @@ export default function LoginPage() {
     }
   }, [user, isUserLoading, router]);
 
+  const handleAuthError = (e: any) => {
+    if (e.code === 'auth/operation-not-allowed') {
+      setError('Error: Sign-in method is not enabled. Please enable it in your Firebase project console.');
+    } else {
+      setError(e.message);
+    }
+  }
+
   const handleSignUp = () => {
     setError(null);
     if (!auth || !firestore) return;
@@ -68,18 +76,14 @@ export default function LoginPage() {
         }, { merge: true });
         // No need to call router.push here, useEffect will handle it.
       })
-      .catch((e: any) => {
-        setError(e.message);
-      });
+      .catch(handleAuthError);
   };
 
   const handleLogin = () => {
     setError(null);
     if (!auth) return;
     signInWithEmailAndPassword(auth, email, password)
-      .catch((e: any) => {
-        setError(e.message);
-      });
+      .catch(handleAuthError);
     // No need to call router.push here, useEffect will handle it.
   };
 
@@ -115,18 +119,14 @@ export default function LoginPage() {
         }
         // No need to call router.push here, useEffect will handle it.
       })
-      .catch((e: any) => {
-        setError(e.message);
-      });
+      .catch(handleAuthError);
   };
 
   const handleAnonymousLogin = () => {
     setError(null);
     if (!auth) return;
     signInAnonymously(auth)
-      .catch((e: any) => {
-        setError(e.message);
-      });
+      .catch(handleAuthError);
     // No need to call router.push here, useEffect will handle it.
   };
   
@@ -200,5 +200,3 @@ export default function LoginPage() {
     </div>
   );
 }
-
-    
