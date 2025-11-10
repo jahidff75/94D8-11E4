@@ -39,17 +39,15 @@ service cloud.firestore {
     }
 
     match /users/{userId} {
-      allow read: if isOwner(userId) || request.auth != null; // Allow any authenticated user to read profiles
-      allow create: if isOwner(userId); // Allow user to create their own profile
-      allow update, delete: if isOwner(userId); // Allow user to update/delete their own profile
-    }
+      allow read, create, update, delete: if isOwner(userId);
 
-    match /users/{userId}/wallet/{walletId} {
-      allow read, write: if isOwner(userId);
-    }
+      match /wallet/{walletId} {
+        allow read, write: if isOwner(userId);
+      }
 
-    match /users/{userId}/transactions/{transactionId} {
-      allow read, write: if isOwner(userId);
+      match /transactions/{transactionId} {
+        allow read, write: if isOwner(userId);
+      }
     }
 
     /**
