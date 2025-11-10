@@ -16,7 +16,7 @@ import {
   signInWithPopup, 
   getAdditionalUserInfo 
 } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc } from 'firebase/firestore';
 import { useFirestore } from '@/firebase';
 import { useRouter } from 'next/navigation';
 import { setDocumentNonBlocking } from '@/firebase';
@@ -40,6 +40,7 @@ export default function LoginPage() {
 
   const handleSignUp = () => {
     setError(null);
+    if (!auth || !firestore) return;
     if (!username) {
         setError("Please enter a username.");
         return;
@@ -56,7 +57,7 @@ export default function LoginPage() {
           matchesWon: 0,
           winRate: 0,
           totalWinnings: 0,
-        }, {});
+        }, { merge: true });
 
         const walletRef = doc(firestore, `users/${user.uid}/wallet`, 'main');
         setDocumentNonBlocking(walletRef, {
@@ -64,7 +65,7 @@ export default function LoginPage() {
           depositCash: 0,
           winningsCash: 0,
           bonusCash: 0,
-        }, {});
+        }, { merge: true });
         // No need to call router.push here, useEffect will handle it.
       })
       .catch((e: any) => {
@@ -74,6 +75,7 @@ export default function LoginPage() {
 
   const handleLogin = () => {
     setError(null);
+    if (!auth) return;
     signInWithEmailAndPassword(auth, email, password)
       .catch((e: any) => {
         setError(e.message);
@@ -83,6 +85,7 @@ export default function LoginPage() {
 
   const handleGoogleSignIn = () => {
     setError(null);
+    if (!auth || !firestore) return;
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then(result => {
@@ -91,23 +94,24 @@ export default function LoginPage() {
 
         if (additionalUserInfo?.isNewUser) {
             const userRef = doc(firestore, 'users', user.uid);
-            setDoc(userRef, {
+            setDocumentNonBlocking(userRef, {
                 id: user.uid,
                 username: user.displayName || user.email?.split('@')[0],
                 email: user.email,
+                profilePhotoUrl: user.photoURL,
                 matchesPlayed: 0,
                 matchesWon: 0,
                 winRate: 0,
                 totalWinnings: 0,
-            });
+            }, { merge: true });
 
             const walletRef = doc(firestore, `users/${user.uid}/wallet`, 'main');
-            setDoc(walletRef, {
+            setDocumentNonBlocking(walletRef, {
                 userId: user.uid,
                 depositCash: 0,
                 winningsCash: 0,
                 bonusCash: 0,
-            });
+            }, { merge: true });
         }
         // No need to call router.push here, useEffect will handle it.
       })
@@ -118,6 +122,7 @@ export default function LoginPage() {
 
   const handleAnonymousLogin = () => {
     setError(null);
+    if (!auth) return;
     signInAnonymously(auth)
       .catch((e: any) => {
         setError(e.message);
@@ -195,3 +200,5 @@ export default function LoginPage() {
     </div>
   );
 }
+
+    
