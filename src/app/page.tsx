@@ -54,7 +54,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { games, offers, featuredBanners, user } from "@/lib/data";
+import { games, offers, user } from "@/lib/data";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import Link from "next/link";
 
@@ -153,6 +153,8 @@ export default function Home() {
     return PlaceHolderImages.find((img) => img.id === gameId)?.imageHint;
   };
 
+  const featuredBanners = PlaceHolderImages.filter(p => p.id.startsWith('banner_'));
+
   return (
     <div className="flex flex-col gap-6">
       {/* Header */}
@@ -178,30 +180,28 @@ export default function Home() {
         >
           <CarouselContent>
             {featuredBanners.map((banner, index) => {
-              const bannerImage = PlaceHolderImages.find(
-                (img) => img.id === banner.imageId
-              );
+              const bannerData = offers.find(o => o.imageId === banner.id) || { title: "New Tournament", desc: "Play and win big prizes!", buttonText: "Play Now" };
               return (
                 <CarouselItem key={index}>
                   <Card className="overflow-hidden border-primary/50">
                     <CardContent className="relative aspect-video p-0">
                       <Image
-                        src={bannerImage?.imageUrl || ""}
-                        alt={banner.title}
+                        src={banner?.imageUrl || ""}
+                        alt={banner.description}
                         fill
                         className="object-cover"
-                        data-ai-hint={bannerImage?.imageHint}
+                        data-ai-hint={banner?.imageHint}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-4 flex flex-col justify-end">
                         <h2 className="text-xl font-bold text-white">
-                          {banner.title}
+                          {bannerData.title}
                         </h2>
-                        <p className="text-sm text-gray-300">{banner.desc}</p>
+                        <p className="text-sm text-gray-300">{bannerData.description}</p>
                         <Button
                           size="sm"
                           className="mt-2 w-fit bg-primary hover:bg-primary/90"
                         >
-                          {banner.buttonText}
+                          {bannerData.buttonText}
                         </Button>
                       </div>
                     </CardContent>
