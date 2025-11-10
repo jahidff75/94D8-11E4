@@ -44,7 +44,11 @@ service cloud.firestore {
       allow update, delete: if isOwner(userId); // Allow user to update/delete their own profile
     }
 
-    match /users/{userId}/{document=**} {
+    match /users/{userId}/wallet/{walletId} {
+      allow read, write: if isOwner(userId);
+    }
+
+    match /users/{userId}/transactions/{transactionId} {
       allow read, write: if isOwner(userId);
     }
 
