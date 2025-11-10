@@ -21,6 +21,7 @@ import { useUser, useDoc, useAuth, useFirestore, useMemoFirebase } from "@/fireb
 import { useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
 import { doc } from "firebase/firestore";
+import BottomNav from "@/components/layout/bottom-nav";
 
 const menuItems = [
   {
