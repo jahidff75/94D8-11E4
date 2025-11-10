@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/firebase';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInAnonymously } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInAnonymously, GoogleAuthProvider, signInWithPopup, getAdditionalUserInfo } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { useFirestore } from '@/firebase';
 import { useRouter } from 'next/navigation';
@@ -70,6 +70,42 @@ export default function LoginPage() {
     }
   };
 
+  const handleGoogleSignIn = async () => {
+    setError(null);
+    try {
+        const provider = new GoogleAuthProvider();
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        const additionalUserInfo = getAdditionalUserInfo(result);
+
+        // If it's a new user, create their profile and wallet
+        if (additionalUserInfo?.isNewUser) {
+            const userRef = doc(firestore, 'users', user.uid);
+            await setDoc(userRef, {
+                id: user.uid,
+                username: user.displayName || user.email?.split('@')[0], // Use display name or part of email
+                email: user.email,
+                matchesPlayed: 0,
+                matchesWon: 0,
+                winRate: 0,
+                totalWinnings: 0,
+            });
+
+            const walletRef = doc(firestore, `users/${user.uid}/wallet`, 'main');
+            await setDoc(walletRef, {
+                userId: user.uid,
+                depositCash: 0,
+                winningsCash: 0,
+                bonusCash: 0,
+            });
+        }
+
+        router.push('/');
+    } catch (e: any) {
+        setError(e.message);
+    }
+  };
+
   const handleAnonymousLogin = async () => {
     setError(null);
     try {
@@ -109,11 +145,15 @@ export default function LoginPage() {
                         <span className="w-full border-t" />
                     </div>
                     <div className="relative flex justify-center text-xs uppercase">
-                        <span className="bg-background px-2 text-muted-foreground">
+                        <span className="bg-card px-2 text-muted-foreground">
                         Or continue with
                         </span>
                     </div>
                 </div>
+                <Button onClick={handleGoogleSignIn} variant="outline" className="w-full">
+                    <svg className="mr-2 h-4 w-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><path fill="currentColor" d="M488 261.8C488 403.3 381.5 512 244.8 512C111.8 512 0 399.4 0 258.6C0 120.3 105.8 8.1 240.8 8.1C306.4 8.1 362.8 30.6 407.5 69.5L342.8 132.3C314.1 106.7 282.8 91.1 244.8 91.1C167.3 91.1 104.2 155.2 104.2 233.9C104.2 312.5 167.3 376.6 244.8 376.6C324.5 376.6 368.1 326.4 374.3 294.6H244.8V222.8H481.1C483.9 237.3 488 249.5 488 261.8z"></path></svg>
+                    Sign in with Google
+                </Button>
                 <Button onClick={handleAnonymousLogin} variant="secondary" className="w-full">Guest Login</Button>
               </div>
             </TabsContent>
