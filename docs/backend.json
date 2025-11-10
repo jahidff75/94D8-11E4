@@ -1,0 +1,358 @@
+{
+  "entities": {
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user within the Doxpow Arena application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the user."
+        },
+        "username": {
+          "type": "string",
+          "description": "The user's unique username (@username)."
+        },
+        "profilePhotoUrl": {
+          "type": "string",
+          "description": "URL of the user's profile photo.",
+          "format": "uri"
+        },
+        "matchesPlayed": {
+          "type": "number",
+          "description": "Total number of matches played by the user."
+        },
+        "matchesWon": {
+          "type": "number",
+          "description": "Total number of matches won by the user."
+        },
+        "winRate": {
+          "type": "number",
+          "description": "The user's win rate (percentage)."
+        },
+        "totalWinnings": {
+          "type": "number",
+          "description": "Total amount of winnings earned by the user."
+        }
+      },
+      "required": [
+        "id",
+        "username"
+      ]
+    },
+    "Wallet": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Wallet",
+      "type": "object",
+      "description": "Represents a user's wallet within the application, storing their balances.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the wallet."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:1 Wallet)"
+        },
+        "depositCash": {
+          "type": "number",
+          "description": "Amount of cash deposited by the user."
+        },
+        "winningsCash": {
+          "type": "number",
+          "description": "Amount of cash won by the user."
+        },
+        "totalBalance": {
+          "type": "number",
+          "description": "Total balance in the wallet (depositCash + winningsCash)."
+        }
+      },
+      "required": [
+        "id",
+        "userId"
+      ]
+    },
+    "Transaction": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Transaction",
+      "type": "object",
+      "description": "Represents a transaction in the user's wallet.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the transaction."
+        },
+        "walletId": {
+          "type": "string",
+          "description": "Reference to Wallet. (Relationship: Wallet 1:N Transaction)"
+        },
+        "transactionType": {
+          "type": "string",
+          "description": "Type of transaction (e.g., deposit, withdrawal, winnings, join fee)."
+        },
+        "amount": {
+          "type": "number",
+          "description": "Amount of the transaction."
+        },
+        "transactionDate": {
+          "type": "string",
+          "description": "Date and time of the transaction.",
+          "format": "date-time"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the transaction (e.g., 'Money Added via UPI', 'Won from Free Fire Match')."
+        }
+      },
+      "required": [
+        "id",
+        "walletId",
+        "transactionType",
+        "amount",
+        "transactionDate"
+      ]
+    },
+    "Match": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Match",
+      "type": "object",
+      "description": "Represents a match or tournament in a specific game.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the match."
+        },
+        "gameName": {
+          "type": "string",
+          "description": "Name of the game (e.g., Free Fire, Ludo King)."
+        },
+        "matchTime": {
+          "type": "string",
+          "description": "Scheduled time of the match.",
+          "format": "date-time"
+        },
+        "map": {
+          "type": "string",
+          "description": "The map on which the match will be played."
+        },
+        "entryFee": {
+          "type": "number",
+          "description": "Entry fee to join the match."
+        },
+        "prizePool": {
+          "type": "number",
+          "description": "Total prize pool for the match."
+        },
+        "status": {
+          "type": "string",
+          "description": "Status of the match (Upcoming, Live, Completed)."
+        }
+      },
+      "required": [
+        "id",
+        "gameName",
+        "matchTime"
+      ]
+    },
+    "UserMatch": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserMatch",
+      "type": "object",
+      "description": "Represents a user's participation in a specific match.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the user-match relationship."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N UserMatch)"
+        },
+        "matchId": {
+          "type": "string",
+          "description": "Reference to Match. (Relationship: Match 1:N UserMatch)"
+        },
+        "rank": {
+          "type": "number",
+          "description": "User's rank in the match."
+        },
+        "kills": {
+          "type": "number",
+          "description": "Number of kills the user achieved in the match."
+        },
+        "winnings": {
+          "type": "number",
+          "description": "Amount of winnings earned by the user in the match."
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "matchId"
+      ]
+    },
+    "Referral": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Referral",
+      "type": "object",
+      "description": "Represents a referral relationship between two users.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the referral."
+        },
+        "referrerId": {
+          "type": "string",
+          "description": "Reference to User (referrer). (Relationship: User 1:N Referral (as referrer))"
+        },
+        "referredUserId": {
+          "type": "string",
+          "description": "Reference to User (referred user). (Relationship: User 1:N Referral (as referred user))"
+        },
+        "referralDate": {
+          "type": "string",
+          "description": "Date and time when the referral was made.",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "description": "Status of the referral (e.g., Pending, Completed)."
+        }
+      },
+      "required": [
+        "id",
+        "referrerId",
+        "referredUserId",
+        "referralDate"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Stores user profiles. Path-based ownership enforced via the {userId} parameter.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/wallet",
+        "definition": {
+          "entityName": "Wallet",
+          "schema": {
+            "$ref": "#/backend/entities/Wallet"
+          },
+          "description": "Stores user's wallet information. Path-based ownership enforced via the /users/{userId} path.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/transactions/{transactionId}",
+        "definition": {
+          "entityName": "Transaction",
+          "schema": {
+            "$ref": "#/backend/entities/Transaction"
+          },
+          "description": "Stores transaction history for a user's wallet. Path-based ownership enforced via the /users/{userId} path.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            },
+            {
+              "name": "transactionId",
+              "description": "The unique identifier for the transaction."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/matches/{matchId}",
+        "definition": {
+          "entityName": "Match",
+          "schema": {
+            "$ref": "#/backend/entities/Match"
+          },
+          "description": "Stores match details. No specific ownership, accessible based on application logic (e.g., upcoming matches are visible to all).",
+          "params": [
+            {
+              "name": "matchId",
+              "description": "The unique identifier for the match."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/userMatches/{userMatchId}",
+        "definition": {
+          "entityName": "UserMatch",
+          "schema": {
+            "$ref": "#/backend/entities/UserMatch"
+          },
+          "description": "Stores information about a user's participation in a match. Includes denormalized userId and matchId for efficient querying and security rules.",
+          "params": [
+            {
+              "name": "userMatchId",
+              "description": "The unique identifier for the user-match relationship."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/referrals/{referralId}",
+        "definition": {
+          "entityName": "Referral",
+          "schema": {
+            "$ref": "#/backend/entities/Referral"
+          },
+          "description": "Stores referral relationships between users.",
+          "params": [
+            {
+              "name": "referralId",
+              "description": "The unique identifier for the referral."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/roles_admin/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Indicates admin role for the user. Existence of document implies admin privileges. Uses existence over content.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore data structure is designed to ensure security, scalability, and ease of debugging, adhering to the core design principles of Authorization Independence, Clarity of Intent, DBAC (Database-Based Access Control), and QAPs (Rules are not Filters). Authorization Independence is achieved through denormalization. For instance, if access to a match requires knowing the match's status, this status is directly available within the `matches` collection, avoiding the need for `get()` calls in security rules. Structural Segregation is employed by keeping different types of data (e.g., user profiles, matches, wallets) in separate collections, each with its own security rules. This prevents mixing data with varying access needs and simplifies rule definitions. Access Modeling follows consistent patterns. User-owned data, like wallets and transactions, are structured under the `/users/{userId}` path, ensuring clear ownership. Matches are stored in a top-level `matches` collection as they are global entities. The `userMatches` collection represents the relationship between users and matches and includes denormalized user and match information to facilitate authorization rules. Referral data is structured to clearly define the referrer and referred user relationships. QAPs (Rules Are Not Filters) is supported through structural segregation. Listing matches does not require filtering based on user-specific data, as the relevant information is available directly within the `matches` collection. The use of existence checks for global roles (e.g., `/roles_admin/{uid}`) provides a simple and efficient way to manage administrative privileges. Explicit State Modeling is used within the `Match` entity, employing a `status` field (`Upcoming`, `Live`, `Completed`) to represent the match's state clearly. This approach avoids inferring state from multiple fields and simplifies rule logic."
+  }
+}

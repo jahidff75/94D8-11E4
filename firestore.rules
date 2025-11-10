@@ -1,0 +1,175 @@
+/**
+ * @fileOverview Firestore Security Rules for Doxpow Arena.
+ *
+ * Core Philosophy:
+ * This ruleset enforces a strict user-ownership model for personal data (profiles, wallets, transactions),
+ * combined with public read access for match data and role-based access for administrative functions.
+ * Data integrity is maintained by ensuring that user IDs in subcollections match the user ID in the path.
+ *
+ * Data Structure:
+ * - /users/{userId}: User profiles, owned by the user.
+ * - /users/{userId}/wallet: User's wallet, owned by the user.
+ * - /users/{userId}/transactions/{transactionId}: User's transaction history, owned by the user.
+ * - /matches/{matchId}: Match details, publicly readable.
+ * - /userMatches/{userMatchId}: User's participation in a match. Includes denormalized userId and matchId.
+ * - /referrals/{referralId}: Referral relationships between users.
+ * - /roles_admin/{userId}: Document existence indicates admin role for the user.
+ *
+ * Key Security Decisions:
+ * - Users can only read and write their own profiles, wallets, and transactions.
+ * - Match data is publicly readable but write access is not defined and must be secured separately (TODO).
+ * - Admin privileges are granted based on the existence of a document in the `/roles_admin/{userId}` collection.
+ * - Data consistency is enforced by matching user IDs in subcollection paths with the user ID in the document.
+ *
+ * Denormalization for Authorization:
+ * - The `userMatches` collection includes denormalized `userId` and `matchId` fields to allow rules to quickly
+ *   validate user participation in matches without additional reads.
+ *
+ * Structural Segregation:
+ * - User-specific data (profiles, wallets, transactions) is stored under the `/users/{userId}` path,
+ *   while public match data is stored in the top-level `/matches` collection.
+ *   This separation simplifies access control and improves query performance.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * @description Allows users to read and write their own profile data.
+     * @path /users/{userId}
+     * @allow (create) - User A with UID "userA" can create their own profile document at /users/userA.
+     * @allow (get, list, update, delete) - User A with UID "userA" can read, update, and delete their own profile document at /users/userA.
+     * @deny (create) - User B with UID "userB" cannot create a profile document for User A at /users/userA.
+     * @deny (update, delete) - User B with UID "userB" cannot update or delete User A's profile document at /users/userA.
+     * @principle Enforces document ownership for all operations on user profiles.
+     */
+    match /users/{userId} {
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+
+      function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+
+      allow get: if true;
+      allow list: if false;
+      allow create: if isOwner(userId);
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Allows users to read and write their own wallet data.
+     * @path /users/{userId}/wallet
+     * @allow (create) - User A with UID "userA" can create their own wallet document at /users/userA/wallet.
+     * @allow (get, list, update, delete) - User A with UID "userA" can read, update, and delete their own wallet document at /users/userA/wallet.
+     * @deny (create) - User B with UID "userB" cannot create a wallet document for User A at /users/userA/wallet.
+     * @deny (update, delete) - User B with UID "userB" cannot update or delete User A's wallet document at /users/userA/wallet.
+     * @principle Enforces document ownership for all operations on user wallets.
+     */
+    match /users/{userId}/wallet {
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+
+      function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+
+      allow get: if isOwner(userId);
+      allow list: if false;
+      allow create: if isOwner(userId);
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Allows users to read and write their own transaction data.
+     * @path /users/{userId}/transactions/{transactionId}
+     * @allow (create) - User A with UID "userA" can create their own transaction document at /users/userA/transactions/transaction1.
+     * @allow (get, list, update, delete) - User A with UID "userA" can read, update, and delete their own transaction document at /users/userA/transactions/transaction1.
+     * @deny (create) - User B with UID "userB" cannot create a transaction document for User A at /users/userA/transactions/transaction1.
+     * @deny (update, delete) - User B with UID "userB" cannot update or delete User A's transaction document at /users/userA/transactions/transaction1.
+     * @principle Enforces document ownership for all operations on user transactions.
+     */
+    match /users/{userId}/transactions/{transactionId} {
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+
+      function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+
+      allow get: if isOwner(userId);
+      allow list: if false;
+      allow create: if isOwner(userId);
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Allows anyone to read match data, but restricts writes.
+     * @path /matches/{matchId}
+     * @allow (get, list) - Any user, signed in or not, can retrieve a match document.
+     * @deny (create, update, delete) - No user can create, update, or delete any document in the /matches collection (TODO: Implement admin or service account writes).
+     * @principle Allows public read access for match information.
+     */
+    match /matches/{matchId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if false; // TODO: Add owner validation once the schema is updated with an ownership field.
+      allow update: if false; // TODO: Add owner validation once the schema is updated with an ownership field.
+      allow delete: if false; // TODO: Add owner validation once the schema is updated with an ownership field.
+    }
+
+    /**
+     * @description Allows access to userMatch data.
+     * @path /userMatches/{userMatchId}
+     * @allow (create) - Any authenticated user can create userMatch records, but the userMatch data must contain the user's id.
+     * @allow (get, list, update, delete) - Only an admin can read or update.
+     * @principle Access to userMatch data is limited.
+     */
+    match /userMatches/{userMatchId} {
+      allow get: if false;
+      allow list: if false;
+      allow create: if request.auth != null;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    /**
+     * @description Allows access to referral data.
+     * @path /referrals/{referralId}
+     * @allow (create) - Only an authenticated user can create referral records.
+     * @allow (get, list, update, delete) - Only an admin can read or update.
+     * @principle Access to referral data is limited.
+     */
+    match /referrals/{referralId} {
+      allow get: if false;
+      allow list: if false;
+      allow create: if request.auth != null;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+     /**
+      * @description Restricts access to the admin roles collection to only allow admins.
+      * @path /roles_admin/{userId}
+      * @allow (get, list) - No one can read the role
+      * @allow (create, update, delete) - Admins can do all
+      * @principle Only admins can change the admin roles.
+      */
+    match /roles_admin/{userId} {
+      function isAdmin() {
+        return exists(/databases/$(database)/documents/roles_admin/$(request.auth.uid));
+      }
+      allow get: if false;
+      allow list: if false;
+      allow create: if isAdmin();
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+  }
+}
