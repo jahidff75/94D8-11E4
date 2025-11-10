@@ -3,9 +3,12 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Users, Ticket, Trophy, ArrowLeft } from 'lucide-react';
+import { Users, Ticket, Trophy, ArrowLeft, Gem, BarChart, BookOpen } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { cn } from '@/lib/utils';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const feeOptions = [
   { fee: 2, prize: 7, players: 4 },
@@ -19,10 +22,15 @@ const feeOptions = [
 
 export default function LudoHomePage() {
   const router = useRouter();
+  const [selectedFee, setSelectedFee] = useState<number | null>(10);
 
-  const handlePlay = (fee: number) => {
-    router.push(`/games/ludo/play?fee=${fee}`);
+  const handlePlay = () => {
+    if (selectedFee !== null) {
+      router.push(`/games/ludo/play?fee=${selectedFee}`);
+    }
   };
+  
+  const ludoBanner = PlaceHolderImages.find(p => p.id === 'banner_ludo');
 
   return (
     <div className="flex flex-col h-full bg-gray-900 text-white">
@@ -36,59 +44,70 @@ export default function LudoHomePage() {
         <div className="w-10"></div>
       </header>
 
-      <main className="flex-1 overflow-y-auto p-4 space-y-4">
-        <Card className="bg-primary/10 border-primary shadow-lg">
-          <CardHeader>
-            <CardTitle className="text-center text-2xl text-primary">
-              Choose Your Battle!
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-center text-muted-foreground">
-              Select an entry fee to join a Ludo match and win exciting prizes.
-            </p>
-          </CardContent>
-        </Card>
-
-        <div className="grid grid-cols-2 gap-4">
-          {feeOptions.map((option) => (
-            <Card
-              key={option.fee}
-              className="bg-card hover:bg-secondary border-border hover:border-primary transition-all duration-300 cursor-pointer"
-              onClick={() => handlePlay(option.fee)}
-            >
-              <CardContent className="p-4 text-center space-y-3">
-                <div className="flex justify-center items-center gap-2">
-                  <Ticket className="w-5 h-5 text-accent" />
-                  <p className="text-sm text-muted-foreground">Entry Fee</p>
+      <main className="flex-1 overflow-y-auto p-4 space-y-4 flex flex-col justify-between">
+        <div>
+            {/* Ad Banner */}
+            <Card className="overflow-hidden mb-4 border-primary/50">
+                <CardContent className="relative aspect-video p-0">
+                <Image
+                    src={ludoBanner?.imageUrl || "https://images.unsplash.com/photo-1611891487122-207579d67d98?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxib2FyZCUyMGdhbWV8ZW58MHx8fHwxNzYyNzIyNDE3fDA&ixlib=rb-4.1.0&q=80&w=1080"}
+                    alt={"Ludo Game"}
+                    fill
+                    className="object-cover"
+                    data-ai-hint={ludoBanner?.imageHint}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-4 flex flex-col justify-end">
+                    <h2 className="text-3xl font-bold text-white drop-shadow-lg">WINZO LUDO</h2>
+                    <p className="text-sm text-gray-200">Play and win exciting cash prizes!</p>
                 </div>
-                <p className="text-3xl font-bold">₹{option.fee}</p>
-
-                <div className="border-t border-dashed border-border my-2"></div>
-
-                <div className="space-y-2 text-sm">
-                   <div className="flex justify-between items-center">
-                     <div className="flex items-center gap-1 text-muted-foreground">
-                        <Trophy className="w-4 h-4"/>
-                        <span>Prize</span>
-                     </div>
-                    <span className="font-semibold text-success">₹{option.prize}</span>
-                  </div>
-                   <div className="flex justify-between items-center">
-                    <div className="flex items-center gap-1 text-muted-foreground">
-                        <Users className="w-4 h-4"/>
-                        <span>Players</span>
-                     </div>
-                    <span className="font-semibold">{option.players}</span>
-                  </div>
-                </div>
-                
-                 <Button className="w-full mt-2 bg-primary hover:bg-primary/90 text-primary-foreground font-bold">
-                  PLAY
-                </Button>
-              </CardContent>
+                </CardContent>
             </Card>
-          ))}
+
+            {/* Results, Learn, Leaderboard */}
+             <div className="grid grid-cols-3 gap-2 mb-6">
+                <Button variant="secondary" className="bg-primary/20 hover:bg-primary/30">
+                    <Trophy className="mr-2 h-4 w-4" /> Results
+                </Button>
+                <Button variant="secondary" className="bg-primary/20 hover:bg-primary/30">
+                    <BookOpen className="mr-2 h-4 w-4" /> Learn
+                </Button>
+                <Button variant="secondary" className="bg-primary/20 hover:bg-primary/30">
+                    <BarChart className="mr-2 h-4 w-4" /> Leaderboard
+                </Button>
+            </div>
+        </div>
+
+        {/* Entry Fee Selection */}
+        <div className="flex flex-col items-center">
+            <h3 className="text-lg font-semibold text-muted-foreground mb-4">Choose Entry Amount</h3>
+            <div className="flex items-center justify-center gap-3 flex-wrap mb-4">
+                {feeOptions.map((option) => (
+                <Button
+                    key={option.fee}
+                    variant={selectedFee === option.fee ? 'default' : 'outline'}
+                    className={cn(
+                        "flex flex-col items-center justify-center w-20 h-20 rounded-full border-2 text-lg font-bold transition-all duration-200",
+                        selectedFee === option.fee 
+                            ? 'bg-primary border-primary-foreground shadow-lg scale-110' 
+                            : 'bg-background/50 border-primary/50 text-white'
+                    )}
+                    onClick={() => setSelectedFee(option.fee)}
+                >
+                    <div className="flex items-center gap-1">
+                        <Gem className="w-4 h-4" />
+                        <span>{option.fee}</span>
+                    </div>
+                    <span className="text-xs font-normal mt-1 text-primary-foreground/80">Win ₹{option.prize}</span>
+                </Button>
+                ))}
+            </div>
+            <Button 
+                onClick={handlePlay} 
+                disabled={selectedFee === null}
+                className="w-full max-w-sm py-6 bg-green-600 hover:bg-green-700 text-white font-bold text-xl rounded-full shadow-lg"
+            >
+                PLAY NOW
+            </Button>
         </div>
       </main>
     </div>
