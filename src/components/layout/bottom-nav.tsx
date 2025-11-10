@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Swords, User, Wallet } from "lucide-react";
+import { Home, Swords, User, Users as ReferIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useUser } from "@/firebase";
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
   { href: "/matches", label: "Matches", icon: Swords },
-  { href: "/wallet", label: "Wallet", icon: Wallet },
+  { href: "/profile/refer", label: "Refer", icon: ReferIcon },
   { href: "/profile", label: "Profile", icon: User },
 ];
 
