@@ -70,6 +70,10 @@
           "type": "number",
           "description": "Amount of cash won by the user."
         },
+        "bonusCash": {
+          "type": "number",
+          "description": "Amount of bonus cash awarded to the user."
+        },
         "totalBalance": {
           "type": "number",
           "description": "Total balance in the wallet (depositCash + winningsCash)."

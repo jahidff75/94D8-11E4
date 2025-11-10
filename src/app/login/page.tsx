@@ -77,7 +77,7 @@ export default function LoginPage() {
       userId: user.uid,
       depositCash: 0,
       winningsCash: 0,
-      bonusCash: 0, // Initialize bonus cash
+      bonusCash: 0,
     }, { merge: true });
   }
 
@@ -205,5 +205,3 @@ export default function LoginPage() {
     </div>
   );
 }
-
-    
