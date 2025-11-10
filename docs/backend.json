@@ -54,10 +54,6 @@
       "type": "object",
       "description": "Represents a user's wallet within the application, storing their balances.",
       "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the wallet."
-        },
         "userId": {
           "type": "string",
           "description": "Reference to User. (Relationship: User 1:1 Wallet)"
@@ -76,11 +72,10 @@
         },
         "totalBalance": {
           "type": "number",
-          "description": "Total balance in the wallet (depositCash + winningsCash)."
+          "description": "Total balance in the wallet (depositCash + winningsCash + bonusCash)."
         }
       },
       "required": [
-        "id",
         "userId"
       ]
     },
