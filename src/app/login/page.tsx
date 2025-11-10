@@ -1,14 +1,21 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useAuth } from '@/firebase';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInAnonymously, GoogleAuthProvider, signInWithPopup, getAdditionalUserInfo } from 'firebase/auth';
+import { useAuth, useUser } from '@/firebase';
+import { 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword, 
+  signInAnonymously, 
+  GoogleAuthProvider, 
+  signInWithPopup, 
+  getAdditionalUserInfo 
+} from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { useFirestore } from '@/firebase';
 import { useRouter } from 'next/navigation';
@@ -22,68 +29,71 @@ export default function LoginPage() {
   const auth = useAuth();
   const firestore = useFirestore();
   const router = useRouter();
+  const { user, isUserLoading } = useUser();
 
-  const handleSignUp = async () => {
+  // Redirect if user is already logged in
+  useEffect(() => {
+    if (!isUserLoading && user) {
+      router.push('/');
+    }
+  }, [user, isUserLoading, router]);
+
+  const handleSignUp = () => {
     setError(null);
     if (!username) {
         setError("Please enter a username.");
         return;
     }
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-      
-      // Create user profile in Firestore
-      const userRef = doc(firestore, 'users', user.uid);
-      setDocumentNonBlocking(userRef, {
-        id: user.uid,
-        username: username,
-        email: user.email,
-        matchesPlayed: 0,
-        matchesWon: 0,
-        winRate: 0,
-        totalWinnings: 0,
-      }, {});
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+        const user = userCredential.user;
+        const userRef = doc(firestore, 'users', user.uid);
+        setDocumentNonBlocking(userRef, {
+          id: user.uid,
+          username: username,
+          email: user.email,
+          matchesPlayed: 0,
+          matchesWon: 0,
+          winRate: 0,
+          totalWinnings: 0,
+        }, {});
 
-      // Create user wallet
-      const walletRef = doc(firestore, `users/${user.uid}/wallet`, 'main');
+        const walletRef = doc(firestore, `users/${user.uid}/wallet`, 'main');
         setDocumentNonBlocking(walletRef, {
-        userId: user.uid,
-        depositCash: 0,
-        winningsCash: 0,
-        bonusCash: 0,
-      }, {});
-
-      router.push('/');
-    } catch (e: any) {
-      setError(e.message);
-    }
+          userId: user.uid,
+          depositCash: 0,
+          winningsCash: 0,
+          bonusCash: 0,
+        }, {});
+        // No need to call router.push here, useEffect will handle it.
+      })
+      .catch((e: any) => {
+        setError(e.message);
+      });
   };
 
-  const handleLogin = async () => {
+  const handleLogin = () => {
     setError(null);
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      router.push('/');
-    } catch (e: any) {
-      setError(e.message);
-    }
+    signInWithEmailAndPassword(auth, email, password)
+      .catch((e: any) => {
+        setError(e.message);
+      });
+    // No need to call router.push here, useEffect will handle it.
   };
 
-  const handleGoogleSignIn = async () => {
+  const handleGoogleSignIn = () => {
     setError(null);
-    try {
-        const provider = new GoogleAuthProvider();
-        const result = await signInWithPopup(auth, provider);
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then(result => {
         const user = result.user;
         const additionalUserInfo = getAdditionalUserInfo(result);
 
-        // If it's a new user, create their profile and wallet
         if (additionalUserInfo?.isNewUser) {
             const userRef = doc(firestore, 'users', user.uid);
-            await setDoc(userRef, {
+            setDoc(userRef, {
                 id: user.uid,
-                username: user.displayName || user.email?.split('@')[0], // Use display name or part of email
+                username: user.displayName || user.email?.split('@')[0],
                 email: user.email,
                 matchesPlayed: 0,
                 matchesWon: 0,
@@ -92,29 +102,33 @@ export default function LoginPage() {
             });
 
             const walletRef = doc(firestore, `users/${user.uid}/wallet`, 'main');
-            await setDoc(walletRef, {
+            setDoc(walletRef, {
                 userId: user.uid,
                 depositCash: 0,
                 winningsCash: 0,
                 bonusCash: 0,
             });
         }
-
-        router.push('/');
-    } catch (e: any) {
+        // No need to call router.push here, useEffect will handle it.
+      })
+      .catch((e: any) => {
         setError(e.message);
-    }
+      });
   };
 
-  const handleAnonymousLogin = async () => {
+  const handleAnonymousLogin = () => {
     setError(null);
-    try {
-        await signInAnonymously(auth);
-        router.push('/');
-    } catch (e: any) {
+    signInAnonymously(auth)
+      .catch((e: any) => {
         setError(e.message);
-    }
+      });
+    // No need to call router.push here, useEffect will handle it.
   };
+  
+  if (isUserLoading || user) {
+    return <div className="flex h-dvh items-center justify-center">Loading...</div>;
+  }
+
 
   return (
     <div className="flex flex-col items-center justify-center min-h-dvh p-4">
