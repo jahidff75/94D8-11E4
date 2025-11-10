@@ -13,6 +13,7 @@ import {
   MessageCircleQuestion,
   Shield,
   FileText,
+  Gem,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -106,7 +107,10 @@ export default function ProfilePage() {
                 <CardTitle className="text-sm font-medium">Total Winnings</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">₹{user.stats.totalWinnings.toLocaleString()}</div>
+                <div className="text-2xl font-bold flex items-center gap-1">
+                  <Gem className="w-5 h-5 text-yellow-400" />
+                  <span>{user.stats.totalWinnings.toLocaleString()}</span>
+                </div>
               </CardContent>
             </Card>
           </div>

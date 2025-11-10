@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { user, transactions } from "@/lib/data";
-import { Info, PlusCircle, MinusCircle, ArrowDown, ArrowUp } from "lucide-react";
+import { Info, PlusCircle, MinusCircle, ArrowDown, ArrowUp, Gem } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Separator } from "@/components/ui/separator";
 
@@ -17,16 +17,19 @@ export default function WalletPage() {
         <Card className="bg-primary/10 border-primary">
           <CardHeader>
             <CardDescription>Total Balance</CardDescription>
-            <CardTitle className="text-4xl">₹{user.totalBalance.toLocaleString()}</CardTitle>
+            <CardTitle className="text-4xl flex items-center gap-2">
+              <Gem className="w-8 h-8 text-yellow-400" />
+              {user.totalBalance.toLocaleString()}
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2 text-sm">
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Deposit Cash:</span>
-              <span>₹{user.depositCash.toLocaleString()}</span>
+              <span className="text-muted-foreground">Deposit Coins:</span>
+              <span>{user.depositCash.toLocaleString()}</span>
             </div>
             <div className="flex justify-between">
               <div className="flex items-center gap-1">
-                <span className="text-muted-foreground">Winnings Cash:</span>
+                <span className="text-muted-foreground">Winnings Coins:</span>
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger>
@@ -38,7 +41,11 @@ export default function WalletPage() {
                   </Tooltip>
                 </TooltipProvider>
               </div>
-              <span className="text-success font-semibold">₹{user.winningsCash.toLocaleString()}</span>
+              <span className="text-success font-semibold">{user.winningsCash.toLocaleString()}</span>
+            </div>
+             <div className="flex justify-between">
+              <span className="text-muted-foreground">Bonus Coins:</span>
+              <span>{user.bonusCash.toLocaleString()}</span>
             </div>
           </CardContent>
         </Card>
@@ -73,9 +80,11 @@ export default function WalletPage() {
                     <p className="font-medium">{tx.title}</p>
                     <p className="text-xs text-muted-foreground">{tx.date}</p>
                   </div>
-                  <span className={`font-semibold ${tx.status === 'positive' ? 'text-success' : 'text-destructive'}`}>
-                    {tx.status === 'positive' ? '+' : '-'}₹{tx.amount}
-                  </span>
+                  <div className={`font-semibold flex items-center gap-1 ${tx.status === 'positive' ? 'text-success' : 'text-destructive'}`}>
+                    <span>{tx.status === 'positive' ? '+' : '-'}</span>
+                    <Gem className="w-4 h-4"/>
+                    <span>{tx.amount}</span>
+                  </div>
                 </div>
                 <Separator className="my-1"/>
               </div>

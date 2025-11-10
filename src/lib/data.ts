@@ -2,14 +2,15 @@ export const user = {
   name: "Jahidul SK",
   username: "@jahidul_pro_gamer",
   profileImageId: "user_profile_1",
-  totalBalance: 600,
-  depositCash: 100,
-  winningsCash: 500,
+  totalBalance: 6300,
+  depositCash: 1000,
+  winningsCash: 5000,
+  bonusCash: 300,
   stats: {
     matchesPlayed: 152,
     matchesWon: 48,
     winRate: "31%",
-    totalWinnings: 12500,
+    totalWinnings: 125000,
   },
 };
 
@@ -17,7 +18,7 @@ export const featuredBanners = [
   {
     id: "banner1",
     title: "Mega Free Fire Tournament",
-    desc: "Win from a prize pool of ₹1,00,000!",
+    desc: "Win from a prize pool of 1,00,000 Coins!",
     buttonText: "Join Now",
     imageId: "banner_freefire",
   },
@@ -30,17 +31,17 @@ export const featuredBanners = [
   },
   {
     id: "banner3",
-    title: "Special Offer",
-    desc: "Add ₹100 & Get ₹20 Extra!",
-    buttonText: "Add Cash",
+    title: "Invite a Friend & Earn 500 Bonus Coins!",
+    desc: "Share your referral code and earn bonus coins.",
+    buttonText: "Refer Now",
     imageId: "banner_offer",
   },
 ];
 
 export const games = [
+  { id: "ludo", name: "Ludo King", liveMatches: 12 },
   { id: "ff", name: "Free Fire", liveMatches: 5 },
   { id: "bgmi", name: "BGMI", liveMatches: 8 },
-  { id: "ludo", name: "Ludo King", liveMatches: 12 },
   { id: "carrom", name: "Carrom", liveMatches: 3 },
   { id: "snl", name: "Snake & Ladder", liveMatches: 2 },
   { id: "rummy", name: "Rummy", liveMatches: 20 },
@@ -113,14 +114,14 @@ export const offers = [
     id: "offer1",
     title: "Play Rummy & Win Lakhs",
     description: "Download the app and get a bonus.",
-    buttonText: "Download & Get ₹50",
+    buttonText: "Download & Get 200 Bonus Coins",
     imageId: "offer_rummy",
   },
   {
     id: "offer2",
     title: "Fantasy Cricket",
     description: "Create your team and win.",
-    buttonText: "Play & Win ₹25",
+    buttonText: "Play & Win 250 Coins",
     imageId: "offer_fantasy",
   },
 ];
@@ -139,8 +140,8 @@ export const tournaments = {
       gameName: "Free Fire",
       matchTime: "Today, 8:00 PM",
       map: "Bermuda",
-      entryFee: 50,
-      prizePool: 5000,
+      entryFee: 500,
+      prizePool: 50000,
       startsAt: getFutureDate(2, 15),
     },
     {
@@ -148,8 +149,8 @@ export const tournaments = {
       gameName: "BGMI",
       matchTime: "Today, 9:00 PM",
       map: "Erangel",
-      entryFee: 100,
-      prizePool: 10000,
+      entryFee: 1000,
+      prizePool: 100000,
       startsAt: getFutureDate(3, 15),
     },
   ],
@@ -166,7 +167,7 @@ export const tournaments = {
       gameName: "Free Fire",
       rank: 5,
       kills: 8,
-      winnings: 250,
+      winnings: 2500,
     },
     {
       id: "t5",
@@ -180,15 +181,15 @@ export const tournaments = {
       gameName: "BGMI",
       rank: 1,
       kills: 12,
-      winnings: 1500,
+      winnings: 15000,
     },
   ],
 };
 
 export const transactions = [
-    { id: 'tx1', type: 'deposit', title: 'Money Added via UPI', amount: 100, date: '10 Nov, 02:30 PM', status: 'positive' },
-    { id: 'tx2', type: 'win', title: 'Won from Free Fire Match', amount: 250, date: '10 Nov, 01:00 PM', status: 'positive' },
-    { id: 'tx3', type: 'join', title: 'Joined Ludo Match', amount: 20, date: '09 Nov, 08:00 PM', status: 'negative' },
-    { id: 'tx4', type: 'withdrawal', title: 'Withdrawal to Bank', amount: 500, date: '09 Nov, 07:30 PM', status: 'negative' },
-    { id: 'tx5', type: 'deposit', title: 'Money Added via Card', amount: 200, date: '08 Nov, 11:00 AM', status: 'positive' },
+    { id: 'tx1', type: 'deposit', title: 'Coins Added via UPI (+100 Bonus)', amount: 1100, date: '10 Nov, 02:30 PM', status: 'positive' },
+    { id: 'tx2', type: 'win', title: 'Won from Free Fire Match', amount: 2500, date: '10 Nov, 01:00 PM', status: 'positive' },
+    { id: 'tx3', type: 'join', title: 'Joined Ludo Match', amount: 200, date: '09 Nov, 08:00 PM', status: 'negative' },
+    { id: 'tx4', type: 'withdrawal', title: 'Withdrawal to Bank', amount: 5000, date: '09 Nov, 07:30 PM', status: 'negative' },
+    { id: 'tx5', type: 'deposit', title: 'Coins Added via Card', amount: 2000, date: '08 Nov, 11:00 AM', status: 'positive' },
 ];

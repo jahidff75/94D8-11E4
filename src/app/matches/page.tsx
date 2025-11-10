@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { tournaments } from "@/lib/data";
 import CountdownTimer from "@/components/countdown-timer";
 import { Badge } from "@/components/ui/badge";
+import { Gem } from "lucide-react";
 
 export default function MyMatchesPage() {
   return (
@@ -36,13 +37,13 @@ export default function MyMatchesPage() {
                     <span className="text-muted-foreground">Map:</span>
                     <span>{match.map}</span>
                   </div>
-                  <div className="flex justify-between text-sm">
+                  <div className="flex justify-between text-sm items-center">
                     <span className="text-muted-foreground">Entry Fee:</span>
-                    <span className="font-semibold">₹{match.entryFee}</span>
+                    <span className="font-semibold flex items-center gap-1"><Gem className="w-4 h-4 text-yellow-400" />{match.entryFee}</span>
                   </div>
-                  <div className="flex justify-between text-sm">
+                  <div className="flex justify-between text-sm items-center">
                     <span className="text-muted-foreground">Prize Pool:</span>
-                    <span className="font-semibold text-success">₹{match.prizePool}</span>
+                    <span className="font-semibold text-success flex items-center gap-1"><Gem className="w-4 h-4 text-yellow-400" />{match.prizePool}</span>
                   </div>
                 </CardContent>
                 <CardFooter className="flex flex-col gap-2">
@@ -97,7 +98,10 @@ export default function MyMatchesPage() {
                     </div>
                      <div className="flex justify-between items-center bg-secondary p-3 rounded-md">
                         <span className="text-muted-foreground">Winnings</span>
-                        <span className={`font-bold text-lg ${match.winnings > 0 ? 'text-success' : 'text-destructive'}`}>₹{match.winnings}</span>
+                        <div className={`font-bold text-lg flex items-center gap-1 ${match.winnings > 0 ? 'text-success' : 'text-destructive'}`}>
+                          <Gem className="w-4 h-4" />
+                          <span>{match.winnings}</span>
+                        </div>
                     </div>
                 </CardContent>
               </Card>

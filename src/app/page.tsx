@@ -163,8 +163,8 @@ export default function Home() {
         <div className="flex items-center gap-4">
           <Bell className="h-6 w-6" />
           <Link href="/wallet" className="flex items-center gap-2 rounded-full bg-card p-2">
-            <Wallet className="h-6 w-6 text-accent" />
-            <span className="font-semibold">₹{user.totalBalance}</span>
+            <Gem className="h-6 w-6 text-yellow-400" />
+            <span className="font-semibold">{user.totalBalance}</span>
           </Link>
         </div>
       </header>
@@ -180,7 +180,7 @@ export default function Home() {
         >
           <CarouselContent>
             {featuredBanners.map((banner, index) => {
-              const bannerData = offers.find(o => o.imageId === banner.id) || { title: "New Tournament", desc: "Play and win big prizes!", buttonText: "Play Now" };
+              const bannerData = offers.find(o => o.imageId === banner.id) || { title: "New Tournament", description: "Play and win big prizes!", buttonText: "Play Now" };
               return (
                 <CarouselItem key={index}>
                   <Card className="overflow-hidden border-primary/50">

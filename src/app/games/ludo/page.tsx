@@ -11,18 +11,18 @@ import { cn } from '@/lib/utils';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const feeOptions = [
-  { fee: 2, prize: 7, players: 4 },
-  { fee: 5, prize: 18, players: 4 },
-  { fee: 10, prize: 35, players: 4 },
-  { fee: 15, prize: 53, players: 4 },
   { fee: 20, prize: 70, players: 4 },
-  { fee: 30, prize: 105, players: 4 },
-  { fee: 50, prize: 175, players: 4 },
+  { fee: 50, prize: 180, players: 4 },
+  { fee: 100, prize: 350, players: 4 },
+  { fee: 150, prize: 530, players: 4 },
+  { fee: 200, prize: 700, players: 4 },
+  { fee: 300, prize: 1050, players: 4 },
+  { fee: 500, prize: 1750, players: 4 },
 ];
 
 export default function LudoHomePage() {
   const router = useRouter();
-  const [selectedFee, setSelectedFee] = useState<number | null>(10);
+  const [selectedFee, setSelectedFee] = useState<number | null>(100);
 
   const handlePlay = () => {
     if (selectedFee !== null) {
@@ -97,7 +97,7 @@ export default function LudoHomePage() {
                         <Gem className="w-4 h-4" />
                         <span>{option.fee}</span>
                     </div>
-                    <span className="text-xs font-normal mt-1 text-primary-foreground/80">Win ₹{option.prize}</span>
+                    <span className="text-xs font-normal mt-1 text-primary-foreground/80">Win {option.prize}</span>
                 </Button>
                 ))}
             </div>
