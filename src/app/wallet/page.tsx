@@ -19,6 +19,8 @@ export default function WalletPage() {
   }, [firestore, user]);
 
   const { data: walletData, isLoading } = useDoc<any>(walletRef);
+  
+  const totalBalance = (walletData?.depositCash || 0) + (walletData?.winningsCash || 0) + (walletData?.bonusCash || 0);
 
   return (
     <div className="flex flex-col pb-24">
@@ -33,7 +35,7 @@ export default function WalletPage() {
             <CardDescription>Total Balance</CardDescription>
             <CardTitle className="text-4xl flex items-center gap-2">
               <Gem className="w-8 h-8 text-yellow-400" />
-              {isLoading ? '...' : (walletData?.totalBalance || 0).toLocaleString()}
+              {isLoading ? '...' : totalBalance.toLocaleString()} Coins
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2 text-sm">

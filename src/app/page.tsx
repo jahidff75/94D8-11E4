@@ -80,7 +80,10 @@ export default function Home() {
       return doc(firestore, `users/${user.uid}/wallet`, 'main');
   }, [firestore, user]);
 
-  const { data: walletData } = useDoc<{ totalBalance: number }>(walletRef);
+  const { data: walletData } = useDoc<any>(walletRef);
+  
+  const totalBalance = (walletData?.depositCash || 0) + (walletData?.winningsCash || 0) + (walletData?.bonusCash || 0);
+
 
   const getGameIcon = (gameName: string) => {
     switch (gameName) {
@@ -190,7 +193,7 @@ export default function Home() {
           <Bell className="h-6 w-6" />
           <Link href="/wallet" className="flex items-center gap-2 rounded-full bg-card p-2">
             <Gem className="h-6 w-6 text-yellow-400" />
-            <span className="font-semibold">{walletData?.totalBalance ?? 0}</span>
+            <span className="font-semibold">{totalBalance.toLocaleString()} Coins</span>
           </Link>
         </div>
       </header>

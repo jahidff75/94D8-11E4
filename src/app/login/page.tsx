@@ -25,6 +25,10 @@ export default function LoginPage() {
 
   const handleSignUp = async () => {
     setError(null);
+    if (!username) {
+        setError("Please enter a username.");
+        return;
+    }
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
@@ -47,7 +51,7 @@ export default function LoginPage() {
         userId: user.uid,
         depositCash: 0,
         winningsCash: 0,
-        totalBalance: 0,
+        bonusCash: 0,
       }, {});
 
       router.push('/');
