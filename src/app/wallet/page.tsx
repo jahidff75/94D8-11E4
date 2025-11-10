@@ -2,16 +2,27 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { transactions } from "@/lib/data";
-import { Info, PlusCircle, MinusCircle, ArrowDown, ArrowUp, Gem } from "lucide-react";
+import { Info, PlusCircle, MinusCircle, ArrowDown, ArrowUp, Gem, Ticket, Star, ChevronRight } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Separator } from "@/components/ui/separator";
 import { useDoc, useUser, useFirestore, useMemoFirebase } from "@/firebase";
 import { doc } from "firebase/firestore";
 import BottomNav from "@/components/layout/bottom-nav";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { useToast } from "@/hooks/use-toast";
+
+const topUpPackages = [
+  { coins: 100, price: 80, bonus: 10, popular: false },
+  { coins: 500, price: 400, bonus: 50, popular: true },
+  { coins: 1200, price: 800, bonus: 150, popular: false },
+  { coins: 2500, price: 1600, bonus: 350, popular: false },
+  { coins: 5000, price: 3200, bonus: 800, popular: false },
+];
 
 export default function WalletPage() {
   const { user } = useUser();
   const firestore = useFirestore();
+  const { toast } = useToast();
 
   const walletRef = useMemoFirebase(() => {
     if (!user) return null;
@@ -22,10 +33,19 @@ export default function WalletPage() {
   
   const totalBalance = (walletData?.depositCash || 0) + (walletData?.winningsCash || 0) + (walletData?.bonusCash || 0);
 
+  const handlePurchase = (coins: number) => {
+    // This is a placeholder for the actual payment gateway integration
+    toast({
+        title: "Purchase Successful!",
+        description: `${coins} Coins have been added to your account.`,
+        variant: 'default'
+    });
+  }
+
   return (
     <div className="flex flex-col pb-24">
       <header className="p-4 border-b border-border sticky top-0 bg-background/80 backdrop-blur-sm z-10">
-        <h1 className="text-xl font-bold text-center">My Wallet</h1>
+        <h1 className="text-xl font-bold text-center">Top-Up</h1>
       </header>
 
       <div className="p-4 space-y-6">
@@ -66,44 +86,42 @@ export default function WalletPage() {
           </CardContent>
         </Card>
 
-        {/* Action Buttons */}
-        <div className="grid grid-cols-2 gap-4">
-          <Button className="py-6 bg-success hover:bg-success/90 text-success-foreground text-lg font-bold">
-            <ArrowDown className="mr-2 h-5 w-5" />
-            ADD CASH
-          </Button>
-          <Button className="py-6 bg-accent hover:bg-accent/90 text-accent-foreground text-lg font-bold">
-             <ArrowUp className="mr-2 h-5 w-5" />
-            WITHDRAW
-          </Button>
-        </div>
+        {/* Transaction History Link */}
+         <Link href="/wallet/history">
+            <div className="flex items-center justify-between p-3 bg-card rounded-lg hover:bg-secondary transition-colors cursor-pointer">
+                <span className="font-medium">Transaction History</span>
+                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+            </div>
+        </Link>
+        
 
-        {/* Transaction History */}
+        {/* Top-Up Packages */}
         <section>
-          <h2 className="text-lg font-semibold mb-4">Recent Transactions</h2>
-          <div className="space-y-2">
-            {transactions.map((tx) => (
-              <div key={tx.id}>
-                <div className="flex items-center p-2 rounded-lg">
-                  <div className="p-2 bg-secondary rounded-full mr-4">
-                    {tx.status === 'positive' ? (
-                      <PlusCircle className="w-6 h-6 text-success" />
-                    ) : (
-                      <MinusCircle className="w-6 h-6 text-destructive" />
-                    )}
+          <h2 className="text-lg font-semibold mb-4 text-center">Buy Coins</h2>
+          <div className="grid grid-cols-2 gap-4">
+            {topUpPackages.map((pkg) => (
+              <Card 
+                key={pkg.coins} 
+                className={cn(
+                    "relative overflow-hidden cursor-pointer group hover:border-primary",
+                    pkg.popular && "border-primary border-2"
+                )}
+                onClick={() => handlePurchase(pkg.coins)}
+              >
+                {pkg.popular && (
+                  <div className="absolute top-0 right-0 bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-bl-lg">
+                    POPULAR
                   </div>
-                  <div className="flex-1">
-                    <p className="font-medium">{tx.title}</p>
-                    <p className="text-xs text-muted-foreground">{tx.date}</p>
-                  </div>
-                  <div className={`font-semibold flex items-center gap-1 ${tx.status === 'positive' ? 'text-success' : 'text-destructive'}`}>
-                    <span>{tx.status === 'positive' ? '+' : '-'}</span>
-                    <Gem className="w-4 h-4"/>
-                    <span>{tx.amount}</span>
-                  </div>
-                </div>
-                <Separator className="my-1"/>
-              </div>
+                )}
+                <CardContent className="p-4 flex flex-col items-center justify-center gap-2 text-center">
+                    <Gem className="w-10 h-10 text-yellow-400"/>
+                    <p className="text-xl font-bold">{pkg.coins.toLocaleString()}</p>
+                    {pkg.bonus > 0 && <p className="text-xs text-success">+ {pkg.bonus} Bonus</p>}
+                    <Button variant={pkg.popular ? "default" : "secondary"} className="w-full mt-2">
+                        ₹{pkg.price}
+                    </Button>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </section>
