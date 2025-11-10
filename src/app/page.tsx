@@ -63,6 +63,7 @@ import { doc } from "firebase/firestore";
 import { useFirestore } from "@/firebase";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import BottomNav from "@/components/layout/bottom-nav";
 
 export default function Home() {
   const { user, isUserLoading } = useUser();
