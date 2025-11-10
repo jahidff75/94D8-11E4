@@ -2,15 +2,15 @@ export const user = {
   name: "Jahidul SK",
   username: "@jahidul_pro_gamer",
   profileImageId: "user_profile_1",
-  totalBalance: 6300,
-  depositCash: 1000,
-  winningsCash: 5000,
-  bonusCash: 300,
+  totalBalance: 63000,
+  depositCash: 10000,
+  winningsCash: 50000,
+  bonusCash: 3000,
   stats: {
     matchesPlayed: 152,
     matchesWon: 48,
     winRate: "31%",
-    totalWinnings: 125000,
+    totalWinnings: 1250000,
   },
 };
 
@@ -40,8 +40,6 @@ export const featuredBanners = [
 
 export const games = [
   { id: "ludo", name: "Ludo King", liveMatches: 12 },
-  { id: "ff", name: "Free Fire", liveMatches: 5 },
-  { id: "bgmi", name: "BGMI", liveMatches: 8 },
   { id: "carrom", name: "Carrom", liveMatches: 3 },
   { id: "snl", name: "Snake & Ladder", liveMatches: 2 },
   { id: "rummy", name: "Rummy", liveMatches: 20 },
@@ -55,7 +53,6 @@ export const games = [
   { id: "knife_up", name: "Knife Up", liveMatches: 22 },
   { id: "bubble_shooter", name: "Bubble Shooter", liveMatches: 30 },
   { id: "archery", name: "Archery King", liveMatches: 7 },
-  { id: "cricket", name: "Fantasy Cricket", liveMatches: 11 },
   { id: "chess", name: "Chess", liveMatches: 6 },
   { id: "air_hockey", name: "Air Hockey", liveMatches: 4 },
   { id: "tank", name: "Tank Battle", liveMatches: 3 },
@@ -117,13 +114,6 @@ export const offers = [
     buttonText: "Download & Get 200 Bonus Coins",
     imageId: "offer_rummy",
   },
-  {
-    id: "offer2",
-    title: "Fantasy Cricket",
-    description: "Create your team and win.",
-    buttonText: "Play & Win 250 Coins",
-    imageId: "offer_fantasy",
-  },
 ];
 
 const getFutureDate = (hours: number, minutes: number) => {
@@ -135,24 +125,6 @@ const getFutureDate = (hours: number, minutes: number) => {
 
 export const tournaments = {
   upcoming: [
-    {
-      id: "t1",
-      gameName: "Free Fire",
-      matchTime: "Today, 8:00 PM",
-      map: "Bermuda",
-      entryFee: 500,
-      prizePool: 50000,
-      startsAt: getFutureDate(2, 15),
-    },
-    {
-      id: "t2",
-      gameName: "BGMI",
-      matchTime: "Today, 9:00 PM",
-      map: "Erangel",
-      entryFee: 1000,
-      prizePool: 100000,
-      startsAt: getFutureDate(3, 15),
-    },
   ],
   live: [
     {
@@ -163,25 +135,11 @@ export const tournaments = {
   ],
   completed: [
     {
-      id: "t4",
-      gameName: "Free Fire",
-      rank: 5,
-      kills: 8,
-      winnings: 2500,
-    },
-    {
       id: "t5",
       gameName: "Carrom",
       rank: 2,
       kills: 0,
       winnings: 0,
-    },
-     {
-      id: "t6",
-      gameName: "BGMI",
-      rank: 1,
-      kills: 12,
-      winnings: 15000,
     },
   ],
 };

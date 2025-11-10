@@ -55,6 +55,13 @@ export default function MyMatchesPage() {
                 </CardFooter>
               </Card>
             ))}
+             {tournaments.upcoming.length === 0 && (
+                <Card className="bg-card">
+                    <CardContent className="pt-6">
+                        <p className="text-center text-muted-foreground">No upcoming matches.</p>
+                    </CardContent>
+                </Card>
+            )}
           </TabsContent>
           <TabsContent value="live" className="mt-4 space-y-4">
             {tournaments.live.map((match) => (
@@ -74,6 +81,13 @@ export default function MyMatchesPage() {
                     </CardFooter>
                 </Card>
             ))}
+             {tournaments.live.length === 0 && (
+                <Card className="bg-card">
+                    <CardContent className="pt-6">
+                        <p className="text-center text-muted-foreground">No live matches.</p>
+                    </CardContent>
+                </Card>
+            )}
           </TabsContent>
           <TabsContent value="completed" className="mt-4 space-y-4">
             {tournaments.completed.map((match) => (
@@ -106,6 +120,13 @@ export default function MyMatchesPage() {
                 </CardContent>
               </Card>
             ))}
+             {tournaments.completed.length === 0 && (
+                <Card className="bg-card">
+                    <CardContent className="pt-6">
+                        <p className="text-center text-muted-foreground">No completed matches.</p>
+                    </CardContent>
+                </Card>
+            )}
           </TabsContent>
         </Tabs>
       </div>

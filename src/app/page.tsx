@@ -61,10 +61,6 @@ import Link from "next/link";
 export default function Home() {
   const getGameIcon = (gameName: string) => {
     switch (gameName) {
-      case "Free Fire":
-        return <Swords className="w-8 h-8 text-primary" />;
-      case "BGMI":
-        return <Swords className="w-8 h-8 text-amber-500" />;
       case "Ludo King":
         return <Dice5 className="w-8 h-8 text-green-500" />;
       case "Carrom":
@@ -87,7 +83,6 @@ export default function Home() {
       case "Knife Up": return <PocketKnife className="w-8 h-8 text-gray-400" />;
       case "Bubble Shooter": return <Cherry className="w-8 h-8 text-pink-400" />;
       case "Archery King": return <Target className="w-8 h-8 text-yellow-600" />;
-      case "Fantasy Cricket": return <Users className="w-8 h-8 text-orange-600" />;
       case "Chess": return <Crown className="w-8 h-8 text-gray-700" />;
       case "Air Hockey": return <Pin className="w-8 h-8 text-blue-400" />;
       case "Tank Battle": return <Bomb className="w-8 h-8 text-black" />;

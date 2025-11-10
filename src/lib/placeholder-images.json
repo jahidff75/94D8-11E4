@@ -1,12 +1,6 @@
 {
   "placeholderImages": [
     {
-      "id": "banner_freefire",
-      "description": "A dynamic banner for a Free Fire tournament",
-      "imageUrl": "https://images.unsplash.com/photo-1759709867188-7d94e0041de2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxlc3BvcnRzJTIwdG91cm5hbWVudHxlbnwwfHx8fDE3NjI3MjI0MTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "esports tournament"
-    },
-    {
       "id": "banner_ludo",
       "description": "A colorful banner announcing Ludo King",
       "imageUrl": "https://images.unsplash.com/photo-1611891487122-207579d67d98?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxib2FyZCUyMGdhbWV8ZW58MHx8fHwxNzYyNzIyNDE3fDA&ixlib=rb-4.1.0&q=80&w=1080",
@@ -17,18 +11,6 @@
       "description": "A banner for a special deposit offer",
       "imageUrl": "https://images.unsplash.com/photo-1759160315014-ad338c3c2016?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxtb25leSUyMGdpZnR8ZW58MHx8fHwxNzYyNzIyNDE3fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "money gift"
-    },
-    {
-      "id": "ff",
-      "description": "Icon for Free Fire game",
-      "imageUrl": "https://images.unsplash.com/photo-1759663177642-01f2fc80f7f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhY3Rpb24lMjBjaGFyYWN0ZXJ8ZW58MHx8fHwxNzYyNzIyNDE3fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "action character"
-    },
-    {
-      "id": "bgmi",
-      "description": "Icon for BGMI game",
-      "imageUrl": "https://images.unsplash.com/photo-1746289222137-46fe38e4c9e8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzb2xkaWVyJTIwYmF0dGxlfGVufDB8fHx8MTc2MjcyMjQxN3ww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "soldier battle"
     },
     {
       "id": "ludo",
@@ -112,12 +94,6 @@
       "id": "archery",
       "description": "Icon for Archery King game",
       "imageUrl": "https://images.unsplash.com/photo-1417716226287-2f8cd2e80274?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzcG9ydHMlMjBnYW1lfGVufDB8fHx8MTc2MjcyMzUyOHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "sports game"
-    },
-    {
-      "id": "cricket",
-      "description": "Icon for Fantasy Cricket game",
-      "imageUrl": "https://images.unsplash.com/photo-1616562007889-186b6cf7fb53?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxzcG9ydHMlMjBnYW1lfGVufDB8fHx8MTc2MjcyMzUyOHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "sports game"
     },
     {
@@ -327,7 +303,7 @@
     {
       "id": "tetris",
       "description": "Icon for Tetris game",
-      "imageUrl": "https://images.unsplash.com/photo-1601063987324-7b482964872b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwdXp6bGUlMjBnYW1lfGVufDB8fHx8MTc2MjY2ODI5NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1601063987324-7b482964872b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwdXp6bGUlMjBnYW1lfGVufDB8fHx8MTc2MjY2ODI5NXww&ixlibrb-4.1.0&q=80&w=1080",
       "imageHint": "puzzle game"
     },
     {
@@ -411,13 +387,13 @@
     {
       "id": "cake_maker",
       "description": "Icon for Cake Maker game",
-      "imageUrl": "https://images.unsplash.com/photo-1759491978401-1dc6f38b6780?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjYXN1YWwlMjBnYW1lfGVufDB8fHx8MTc2MjcyMzUyOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1759491978401-1dc6f38b6780?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjYXN1YWwlMjBnYW1lfGVufDB8fHx8MTc2MjcyMzUyOXww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "casual game"
     },
     {
       "id": "key_quest",
       "description": "Icon for Key Quest game",
-      "imageUrl": "https://images.unsplash.com/photo-1703685433134-9c88ac8a4724?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwdXp6bGUlMjBnYW1lfGVufDB8fHx8MTc2MjY2ODI5NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1703685433134-9c88ac8a4724?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwdXp6bGUlMjBnYW1lfGVufDB8fHx8MTc2MjY2ODI5NXww&ixlib.rb-4.1.0&q=80&w=1080",
       "imageHint": "puzzle game"
     },
     {
@@ -425,12 +401,6 @@
       "description": "Icon for a Rummy app promotion",
       "imageUrl": "https://images.unsplash.com/photo-1743574318769-edabd8a33d0b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y2FyZHMlMjBnYW1lfGVufDB8fHx8MTc2MjY4Njc1NHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "cards game"
-    },
-    {
-      "id": "offer_fantasy",
-      "description": "Icon for a Fantasy Cricket app promotion",
-      "imageUrl": "https://images.unsplash.com/photo-1512719994953-eabf50895df7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjcmlja2V0JTIwc3RhZGl1bXxlbnwwfHx8fDE3NjI3MTIwMzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "cricket stadium"
     },
     {
       "id": "user_profile_1",
