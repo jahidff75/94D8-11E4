@@ -1,13 +1,12 @@
-
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useAuth, useUser } from '@/firebase';
+import { useAuth, useUser, useFirestore, setDocumentNonBlocking } from '@/firebase';
 import { 
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword, 
@@ -17,9 +16,7 @@ import {
   getAdditionalUserInfo 
 } from 'firebase/auth';
 import { doc } from 'firebase/firestore';
-import { useFirestore } from '@/firebase';
 import { useRouter } from 'next/navigation';
-import { setDocumentNonBlocking } from '@/firebase';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -39,95 +36,100 @@ export default function LoginPage() {
   }, [user, isUserLoading, router]);
 
   const handleAuthError = (e: any) => {
-    if (e.code === 'auth/operation-not-allowed') {
-      setError('Error: Sign-in method is not enabled. Please enable it in your Firebase project console.');
-    } else {
-      setError(e.message);
+    switch (e.code) {
+      case 'auth/operation-not-allowed':
+        setError('Error: This sign-in method is not enabled. Please enable it in your Firebase project console.');
+        break;
+      case 'auth/user-not-found':
+        setError('No account found with this email. Please sign up.');
+        break;
+      case 'auth/wrong-password':
+        setError('Incorrect password. Please try again.');
+        break;
+      case 'auth/email-already-in-use':
+        setError('This email is already in use. Please log in.');
+        break;
+      default:
+        setError(e.message);
+        break;
     }
+  };
+  
+  const createNewUserDocuments = (user: any) => {
+    if (!firestore) return;
+    const userRef = doc(firestore, 'users', user.uid);
+    setDocumentNonBlocking(userRef, {
+      id: user.uid,
+      username: username || user.displayName || user.email?.split('@')[0],
+      email: user.email,
+      profilePhotoUrl: user.photoURL || '',
+      matchesPlayed: 0,
+      matchesWon: 0,
+      winRate: 0,
+      totalWinnings: 0,
+    }, { merge: true });
+
+    const walletRef = doc(firestore, `users/${user.uid}/wallet`, 'main');
+    setDocumentNonBlocking(walletRef, {
+      userId: user.uid,
+      depositCash: 0,
+      winningsCash: 0,
+      bonusCash: 0, // Initialize bonus cash
+    }, { merge: true });
   }
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     setError(null);
     if (!auth || !firestore) return;
     if (!username) {
         setError("Please enter a username.");
         return;
     }
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(userCredential => {
-        const user = userCredential.user;
-        const userRef = doc(firestore, 'users', user.uid);
-        setDocumentNonBlocking(userRef, {
-          id: user.uid,
-          username: username,
-          email: user.email,
-          matchesPlayed: 0,
-          matchesWon: 0,
-          winRate: 0,
-          totalWinnings: 0,
-        }, { merge: true });
-
-        const walletRef = doc(firestore, `users/${user.uid}/wallet`, 'main');
-        setDocumentNonBlocking(walletRef, {
-          userId: user.uid,
-          depositCash: 0,
-          winningsCash: 0,
-          bonusCash: 0,
-        }, { merge: true });
-        // No need to call router.push here, useEffect will handle it.
-      })
-      .catch(handleAuthError);
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      createNewUserDocuments(userCredential.user);
+      // Let the useEffect handle redirection
+    } catch (e: any) {
+      handleAuthError(e);
+    }
   };
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     setError(null);
     if (!auth) return;
-    signInWithEmailAndPassword(auth, email, password)
-      .catch(handleAuthError);
-    // No need to call router.push here, useEffect will handle it.
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      // Let the useEffect handle redirection
+    } catch (e: any) {
+      handleAuthError(e);
+    }
   };
 
-  const handleGoogleSignIn = () => {
+  const handleGoogleSignIn = async () => {
     setError(null);
     if (!auth || !firestore) return;
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-      .then(result => {
-        const user = result.user;
-        const additionalUserInfo = getAdditionalUserInfo(result);
-
-        if (additionalUserInfo?.isNewUser) {
-            const userRef = doc(firestore, 'users', user.uid);
-            setDocumentNonBlocking(userRef, {
-                id: user.uid,
-                username: user.displayName || user.email?.split('@')[0],
-                email: user.email,
-                profilePhotoUrl: user.photoURL,
-                matchesPlayed: 0,
-                matchesWon: 0,
-                winRate: 0,
-                totalWinnings: 0,
-            }, { merge: true });
-
-            const walletRef = doc(firestore, `users/${user.uid}/wallet`, 'main');
-            setDocumentNonBlocking(walletRef, {
-                userId: user.uid,
-                depositCash: 0,
-                winningsCash: 0,
-                bonusCash: 0,
-            }, { merge: true });
-        }
-        // No need to call router.push here, useEffect will handle it.
-      })
-      .catch(handleAuthError);
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const additionalUserInfo = getAdditionalUserInfo(result);
+      if (additionalUserInfo?.isNewUser) {
+        createNewUserDocuments(result.user);
+      }
+      // Let the useEffect handle redirection
+    } catch (e: any) {
+      handleAuthError(e);
+    }
   };
 
-  const handleAnonymousLogin = () => {
+  const handleAnonymousLogin = async () => {
     setError(null);
     if (!auth) return;
-    signInAnonymously(auth)
-      .catch(handleAuthError);
-    // No need to call router.push here, useEffect will handle it.
+    try {
+      await signInAnonymously(auth);
+      // Let the useEffect handle redirection
+    } catch(e: any) {
+      handleAuthError(e);
+    }
   };
   
   if (isUserLoading || user) {
@@ -200,3 +202,5 @@ export default function LoginPage() {
     </div>
   );
 }
+
+    
