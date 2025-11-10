@@ -73,6 +73,7 @@ export default function LoginPage() {
     }, { merge: true });
 
     const walletRef = doc(firestore, `users/${user.uid}/wallet`, 'main');
+    // Corrected the call to setDocumentNonBlocking for wallet creation
     setDocumentNonBlocking(walletRef, {
       userId: user.uid,
       depositCash: 0,
