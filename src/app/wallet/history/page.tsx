@@ -1,4 +1,5 @@
 'use client';
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { transactions } from "@/lib/data";
 import { PlusCircle, MinusCircle, Gem, ArrowLeft } from "lucide-react";
