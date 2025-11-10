@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Home, Swords, User, Wallet } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useUser } from "@/firebase";
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
@@ -14,6 +15,11 @@ const navItems = [
 
 export default function BottomNav() {
   const pathname = usePathname();
+  const { user } = useUser();
+
+  if (!user || pathname === '/login') {
+    return null;
+  }
 
   return (
     <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md h-20 bg-card border-t border-border z-20">

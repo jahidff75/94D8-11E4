@@ -1,3 +1,4 @@
+'use client';
 import Image from "next/image";
 import {
   Bell,
@@ -54,11 +55,33 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { games, offers, user } from "@/lib/data";
+import { games, offers, user as staticUser } from "@/lib/data";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import Link from "next/link";
+import { useUser, useDoc, useMemoFirebase } from "@/firebase";
+import { doc } from "firebase/firestore";
+import { useFirestore } from "@/firebase";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Home() {
+  const { user, isUserLoading } = useUser();
+  const firestore = useFirestore();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isUserLoading && !user) {
+      router.push('/login');
+    }
+  }, [isUserLoading, user, router]);
+
+  const walletRef = useMemoFirebase(() => {
+      if (!user) return null;
+      return doc(firestore, `users/${user.uid}/wallet`, 'main');
+  }, [firestore, user]);
+
+  const { data: walletData } = useDoc<{ totalBalance: number }>(walletRef);
+
   const getGameIcon = (gameName: string) => {
     switch (gameName) {
       case "Ludo King":
@@ -150,8 +173,16 @@ export default function Home() {
 
   const featuredBanners = PlaceHolderImages.filter(p => p.id.startsWith('banner_'));
 
+  if (isUserLoading || !user) {
+    return (
+        <div className="flex items-center justify-center h-dvh">
+            <p>Loading...</p>
+        </div>
+    )
+  }
+
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 pb-24">
       {/* Header */}
       <header className="flex items-center justify-between p-4 sticky top-0 bg-background/80 backdrop-blur-sm z-10">
         <h1 className="text-2xl font-bold text-primary">Doxpow</h1>
@@ -159,7 +190,7 @@ export default function Home() {
           <Bell className="h-6 w-6" />
           <Link href="/wallet" className="flex items-center gap-2 rounded-full bg-card p-2">
             <Gem className="h-6 w-6 text-yellow-400" />
-            <span className="font-semibold">{user.totalBalance}</span>
+            <span className="font-semibold">{walletData?.totalBalance ?? 0}</span>
           </Link>
         </div>
       </header>
@@ -292,6 +323,7 @@ export default function Home() {
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
       </section>
+      <BottomNav />
     </div>
   );
 }

@@ -1,3 +1,4 @@
+'use client';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -5,10 +6,11 @@ import { tournaments } from "@/lib/data";
 import CountdownTimer from "@/components/countdown-timer";
 import { Badge } from "@/components/ui/badge";
 import { Gem } from "lucide-react";
+import BottomNav from "@/components/layout/bottom-nav";
 
 export default function MyMatchesPage() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col pb-24">
       <header className="p-4 border-b border-border sticky top-0 bg-background/80 backdrop-blur-sm z-10">
         <h1 className="text-xl font-bold text-center">My Matches</h1>
       </header>
@@ -130,6 +132,7 @@ export default function MyMatchesPage() {
           </TabsContent>
         </Tabs>
       </div>
+      <BottomNav />
     </div>
   );
 }

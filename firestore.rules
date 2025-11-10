@@ -27,86 +27,25 @@
  *
  * Structural Segregation:
  * - User-specific data (profiles, wallets, transactions) is stored under the `/users/{userId}` path,
- *   while public match data is stored in the top-level `/matches` collection.
+ *   while public match data is stored in the top-level `matches` collection.
  *   This separation simplifies access control and improves query performance.
  */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
 
-    /**
-     * @description Allows users to read and write their own profile data.
-     * @path /users/{userId}
-     * @allow (create) - User A with UID "userA" can create their own profile document at /users/userA.
-     * @allow (get, list, update, delete) - User A with UID "userA" can read, update, and delete their own profile document at /users/userA.
-     * @deny (create) - User B with UID "userB" cannot create a profile document for User A at /users/userA.
-     * @deny (update, delete) - User B with UID "userB" cannot update or delete User A's profile document at /users/userA.
-     * @principle Enforces document ownership for all operations on user profiles.
-     */
     match /users/{userId} {
-      function isOwner(userId) {
-        return request.auth.uid == userId;
-      }
-
-      function isExistingOwner(userId) {
-        return isOwner(userId) && resource != null;
-      }
-
-      allow get: if true;
-      allow list: if false;
-      allow create: if isOwner(userId);
-      allow update: if isExistingOwner(userId);
-      allow delete: if isExistingOwner(userId);
+      allow read: if isOwner(userId) || request.auth != null; // Allow any authenticated user to read profiles
+      allow create: if isOwner(userId); // Allow user to create their own profile
+      allow update, delete: if isOwner(userId); // Allow user to update/delete their own profile
     }
 
-    /**
-     * @description Allows users to read and write their own wallet data.
-     * @path /users/{userId}/wallet
-     * @allow (create) - User A with UID "userA" can create their own wallet document at /users/userA/wallet.
-     * @allow (get, list, update, delete) - User A with UID "userA" can read, update, and delete their own wallet document at /users/userA/wallet.
-     * @deny (create) - User B with UID "userB" cannot create a wallet document for User A at /users/userA/wallet.
-     * @deny (update, delete) - User B with UID "userB" cannot update or delete User A's wallet document at /users/userA/wallet.
-     * @principle Enforces document ownership for all operations on user wallets.
-     */
-    match /users/{userId}/wallet {
-      function isOwner(userId) {
-        return request.auth.uid == userId;
-      }
-
-      function isExistingOwner(userId) {
-        return isOwner(userId) && resource != null;
-      }
-
-      allow get: if isOwner(userId);
-      allow list: if false;
-      allow create: if isOwner(userId);
-      allow update: if isExistingOwner(userId);
-      allow delete: if isExistingOwner(userId);
-    }
-
-    /**
-     * @description Allows users to read and write their own transaction data.
-     * @path /users/{userId}/transactions/{transactionId}
-     * @allow (create) - User A with UID "userA" can create their own transaction document at /users/userA/transactions/transaction1.
-     * @allow (get, list, update, delete) - User A with UID "userA" can read, update, and delete their own transaction document at /users/userA/transactions/transaction1.
-     * @deny (create) - User B with UID "userB" cannot create a transaction document for User A at /users/userA/transactions/transaction1.
-     * @deny (update, delete) - User B with UID "userB" cannot update or delete User A's transaction document at /users/userA/transactions/transaction1.
-     * @principle Enforces document ownership for all operations on user transactions.
-     */
-    match /users/{userId}/transactions/{transactionId} {
-      function isOwner(userId) {
-        return request.auth.uid == userId;
-      }
-
-      function isExistingOwner(userId) {
-        return isOwner(userId) && resource != null;
-      }
-
-      allow get: if isOwner(userId);
-      allow list: if false;
-      allow create: if isOwner(userId);
-      allow update: if isExistingOwner(userId);
-      allow delete: if isExistingOwner(userId);
+    match /users/{userId}/{document=**} {
+      allow read, write: if isOwner(userId);
     }
 
     /**

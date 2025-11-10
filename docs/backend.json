@@ -14,6 +14,11 @@
           "type": "string",
           "description": "The user's unique username (@username)."
         },
+        "email": {
+            "type": "string",
+            "description": "The user's email address.",
+            "format": "email"
+        },
         "profilePhotoUrl": {
           "type": "string",
           "description": "URL of the user's profile photo.",
@@ -38,7 +43,8 @@
       },
       "required": [
         "id",
-        "username"
+        "username",
+        "email"
       ]
     },
     "Wallet": {

@@ -1,13 +1,27 @@
+'use client';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { user, transactions } from "@/lib/data";
+import { transactions } from "@/lib/data";
 import { Info, PlusCircle, MinusCircle, ArrowDown, ArrowUp, Gem } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Separator } from "@/components/ui/separator";
+import { useDoc, useUser, useFirestore, useMemoFirebase } from "@/firebase";
+import { doc } from "firebase/firestore";
+import BottomNav from "@/components/layout/bottom-nav";
 
 export default function WalletPage() {
+  const { user } = useUser();
+  const firestore = useFirestore();
+
+  const walletRef = useMemoFirebase(() => {
+    if (!user) return null;
+    return doc(firestore, `users/${user.uid}/wallet`, 'main');
+  }, [firestore, user]);
+
+  const { data: walletData, isLoading } = useDoc<any>(walletRef);
+
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col pb-24">
       <header className="p-4 border-b border-border sticky top-0 bg-background/80 backdrop-blur-sm z-10">
         <h1 className="text-xl font-bold text-center">My Wallet</h1>
       </header>
@@ -19,13 +33,13 @@ export default function WalletPage() {
             <CardDescription>Total Balance</CardDescription>
             <CardTitle className="text-4xl flex items-center gap-2">
               <Gem className="w-8 h-8 text-yellow-400" />
-              {user.totalBalance.toLocaleString()}
+              {isLoading ? '...' : (walletData?.totalBalance || 0).toLocaleString()}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2 text-sm">
             <div className="flex justify-between">
               <span className="text-muted-foreground">Deposit Coins:</span>
-              <span>{user.depositCash.toLocaleString()}</span>
+              <span>{isLoading ? '...' : (walletData?.depositCash || 0).toLocaleString()}</span>
             </div>
             <div className="flex justify-between">
               <div className="flex items-center gap-1">
@@ -41,11 +55,11 @@ export default function WalletPage() {
                   </Tooltip>
                 </TooltipProvider>
               </div>
-              <span className="text-success font-semibold">{user.winningsCash.toLocaleString()}</span>
+              <span className="text-success font-semibold">{isLoading ? '...' : (walletData?.winningsCash || 0).toLocaleString()}</span>
             </div>
              <div className="flex justify-between">
               <span className="text-muted-foreground">Bonus Coins:</span>
-              <span>{user.bonusCash.toLocaleString()}</span>
+              <span>{isLoading ? '...' : (walletData?.bonusCash || 0).toLocaleString()}</span>
             </div>
           </CardContent>
         </Card>
@@ -92,6 +106,7 @@ export default function WalletPage() {
           </div>
         </section>
       </div>
+      <BottomNav />
     </div>
   );
 }

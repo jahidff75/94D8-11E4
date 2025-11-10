@@ -32,8 +32,7 @@ export default function RootLayout({
       >
         <FirebaseClientProvider>
           <div className="relative mx-auto flex h-dvh max-w-md flex-col bg-background text-foreground shadow-2xl">
-            <main className="flex-1 overflow-y-auto pb-24">{children}</main>
-            <BottomNav />
+            <main className="flex-1 overflow-y-auto">{children}</main>
             <Toaster />
           </div>
         </FirebaseClientProvider>

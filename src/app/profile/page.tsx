@@ -1,5 +1,6 @@
+'use client';
 import Image from "next/image";
-import { user } from "@/lib/data";
+import { user as staticUser } from "@/lib/data";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,6 +17,10 @@ import {
   Gem,
 } from "lucide-react";
 import Link from "next/link";
+import { useUser, useDoc, useAuth, useFirestore, useMemoFirebase } from "@/firebase";
+import { useRouter } from "next/navigation";
+import { signOut } from "firebase/auth";
+import { doc } from "firebase/firestore";
 
 const menuItems = [
   {
@@ -51,13 +56,40 @@ const menuItems = [
 ];
 
 export default function ProfilePage() {
+  const { user, isUserLoading } = useUser();
+  const auth = useAuth();
+  const firestore = useFirestore();
+  const router = useRouter();
+
+  const userRef = useMemoFirebase(() => {
+    if (!user) return null;
+    return doc(firestore, 'users', user.uid);
+  }, [firestore, user]);
+  
+  const { data: userData, isLoading: isUserDocLoading } = useDoc<any>(userRef);
+
   const profileImage = PlaceHolderImages.find(
-    (img) => img.id === user.profileImageId
+    (img) => img.id === staticUser.profileImageId
   );
-  const userInitial = user.name.charAt(0);
+  
+  const handleLogout = async () => {
+    await signOut(auth);
+    router.push('/login');
+  }
+
+  if (isUserLoading || isUserDocLoading) {
+    return <div className="flex items-center justify-center h-dvh">Loading...</div>;
+  }
+
+  if (!user) {
+    router.push('/login');
+    return null;
+  }
+  
+  const userInitial = userData?.username?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || '?';
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col pb-24">
        <header className="p-4 border-b border-border sticky top-0 bg-background/80 backdrop-blur-sm z-10">
         <h1 className="text-xl font-bold text-center">My Profile</h1>
       </header>
@@ -66,13 +98,13 @@ export default function ProfilePage() {
         {/* User Info Section */}
         <section className="flex flex-col items-center gap-2">
           <Avatar className="w-24 h-24 border-2 border-primary">
-            <AvatarImage src={profileImage?.imageUrl} alt={user.name} data-ai-hint={profileImage?.imageHint}/>
+            <AvatarImage src={user.isAnonymous ? '' : (profileImage?.imageUrl || '')} alt={userData?.username} data-ai-hint={profileImage?.imageHint}/>
             <AvatarFallback className="text-3xl bg-muted">
               {userInitial}
             </AvatarFallback>
           </Avatar>
-          <h2 className="text-2xl font-bold">{user.name}</h2>
-          <p className="text-muted-foreground">{user.username}</p>
+          <h2 className="text-2xl font-bold">{user.isAnonymous ? 'Guest Player' : (userData?.username || user.email)}</h2>
+          <p className="text-muted-foreground">{user.isAnonymous ? `@guest_${user.uid.slice(0,6)}` : (userData?.username ? `@${userData.username}` : user.uid)}</p>
         </section>
 
         {/* Stats Dashboard */}
@@ -83,7 +115,7 @@ export default function ProfilePage() {
                 <CardTitle className="text-sm font-medium">Matches Played</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{user.stats.matchesPlayed}</div>
+                <div className="text-2xl font-bold">{userData?.matchesPlayed || 0}</div>
               </CardContent>
             </Card>
             <Card>
@@ -91,7 +123,7 @@ export default function ProfilePage() {
                 <CardTitle className="text-sm font-medium">Matches Won</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-success">{user.stats.matchesWon}</div>
+                <div className="text-2xl font-bold text-success">{userData?.matchesWon || 0}</div>
               </CardContent>
             </Card>
             <Card>
@@ -99,7 +131,7 @@ export default function ProfilePage() {
                 <CardTitle className="text-sm font-medium">Win Rate</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{user.stats.winRate}</div>
+                <div className="text-2xl font-bold">{userData?.winRate || '0%'}</div>
               </CardContent>
             </Card>
             <Card>
@@ -109,7 +141,7 @@ export default function ProfilePage() {
               <CardContent>
                 <div className="text-2xl font-bold flex items-center gap-1">
                   <Gem className="w-5 h-5 text-yellow-400" />
-                  <span>{user.stats.totalWinnings.toLocaleString()}</span>
+                  <span>{(userData?.totalWinnings || 0).toLocaleString()}</span>
                 </div>
               </CardContent>
             </Card>
@@ -133,12 +165,13 @@ export default function ProfilePage() {
 
         {/* Logout Button */}
         <section>
-            <Button variant="destructive" className="w-full bg-red-800/80 hover:bg-red-800 text-white">
+            <Button onClick={handleLogout} variant="destructive" className="w-full bg-red-800/80 hover:bg-red-800 text-white">
                 <LogOut className="mr-2 h-4 w-4" />
                 LOGOUT
             </Button>
         </section>
       </div>
+       <BottomNav />
     </div>
   );
 }
