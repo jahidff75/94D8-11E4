@@ -4,6 +4,7 @@ import { Poppins } from "next/font/google";
 import { cn } from "@/lib/utils";
 import BottomNav from "@/components/layout/bottom-nav";
 import { Toaster } from "@/components/ui/toaster";
+import { FirebaseClientProvider } from "@/firebase/client-provider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -29,11 +30,13 @@ export default function RootLayout({
           poppins.variable
         )}
       >
-        <div className="relative mx-auto flex h-dvh max-w-md flex-col bg-background text-foreground shadow-2xl">
-          <main className="flex-1 overflow-y-auto pb-24">{children}</main>
-          <BottomNav />
-          <Toaster />
-        </div>
+        <FirebaseClientProvider>
+          <div className="relative mx-auto flex h-dvh max-w-md flex-col bg-background text-foreground shadow-2xl">
+            <main className="flex-1 overflow-y-auto pb-24">{children}</main>
+            <BottomNav />
+            <Toaster />
+          </div>
+        </FirebaseClientProvider>
       </body>
     </html>
   );
