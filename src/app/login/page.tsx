@@ -38,7 +38,10 @@ export default function LoginPage() {
   const handleAuthError = (e: any) => {
     switch (e.code) {
       case 'auth/operation-not-allowed':
-        setError('Error: This sign-in method is not enabled. Please enable it in your Firebase project console.');
+        setError('Sign-in method not enabled. Please enable it in your Firebase Console (Authentication > Sign-in method).');
+        break;
+      case 'auth/unauthorized-domain':
+        setError('This domain is not authorized. Please add "localhost" to the authorized domains in your Firebase Console (Authentication > Settings).');
         break;
       case 'auth/user-not-found':
         setError('No account found with this email. Please sign up.');
