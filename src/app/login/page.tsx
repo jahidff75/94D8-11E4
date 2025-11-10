@@ -17,6 +17,7 @@ import {
 } from 'firebase/auth';
 import { doc } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
+import { User } from 'firebase/auth';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -58,8 +59,10 @@ export default function LoginPage() {
     }
   };
   
-  const createNewUserDocuments = (user: any) => {
+  const createNewUserDocuments = (user: User) => {
     if (!firestore) return;
+
+    // Create the user profile document
     const userRef = doc(firestore, 'users', user.uid);
     setDocumentNonBlocking(userRef, {
       id: user.uid,
@@ -72,6 +75,7 @@ export default function LoginPage() {
       totalWinnings: 0,
     }, { merge: true });
 
+    // Create the user's wallet document in a sub-collection
     const walletRef = doc(firestore, `users/${user.uid}/wallet`, 'main');
     setDocumentNonBlocking(walletRef, {
       userId: user.uid,
@@ -129,7 +133,9 @@ export default function LoginPage() {
     setError(null);
     if (!auth) return;
     try {
-      await signInAnonymously(auth);
+      const userCredential = await signInAnonymously(auth);
+      // For anonymous users, we might still want to create basic documents
+      createNewUserDocuments(userCredential.user);
       // Let the useEffect handle redirection
     } catch(e: any) {
       handleAuthError(e);
