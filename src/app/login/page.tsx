@@ -81,7 +81,7 @@ export default function LoginPage() {
       userId: user.uid,
       depositCash: 0,
       winningsCash: 0,
-      bonusCash: 100,
+      bonusCash: 100, // Giving 100 bonus coins on signup
       totalBalance: 100,
     }, { merge: true });
   }

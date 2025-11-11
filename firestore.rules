@@ -8,7 +8,7 @@
  *
  * Data Structure:
  * - /users/{userId}: User profiles, owned by the user.
- * - /users/{userId}/wallet: User's wallet, owned by the user.
+ * - /users/{userId}/wallet/{walletDocId}: User's wallet, owned by the user.
  * - /users/{userId}/transactions/{transactionId}: User's transaction history, owned by the user.
  * - /matches/{matchId}: Match details, publicly readable.
  * - /userMatches/{userMatchId}: User's participation in a match. Includes denormalized userId and matchId.
