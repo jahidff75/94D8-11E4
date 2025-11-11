@@ -189,7 +189,7 @@ export default function Home() {
     <div className="flex flex-col gap-6 pb-24">
       {/* Header */}
       <header className="flex items-center justify-between p-4 sticky top-0 bg-background/80 backdrop-blur-sm z-10">
-        <h1 className="text-2xl font-bold text-primary">Doxpow</h1>
+        <h1 className="text-2xl font-bold text-primary">Sc Arena</h1>
         <div className="flex items-center gap-4">
           <Bell className="h-6 w-6" />
           <Link href="/wallet" className="flex items-center gap-2 rounded-full bg-card p-2">

@@ -114,7 +114,7 @@ export default function RummyGamePage() {
                             {/* Deck and Discard Pile */}
                             <div className="flex flex-col items-center">
                                 <div className="w-16 h-24 bg-blue-800 rounded-lg shadow-lg border-2 border-blue-900 flex items-center justify-center text-white font-bold [transform:style_preserve-3d] [transform:rotateY_180deg]">
-                                    <div className="w-14 h-20 rounded-md border-2 border-white/50 flex items-center justify-center">DOXPOW</div>
+                                    <div className="w-14 h-20 rounded-md border-2 border-white/50 flex items-center justify-center text-xs">SCA</div>
                                 </div>
                                 <p className="text-white text-xs mt-1">Deck</p>
                             </div>

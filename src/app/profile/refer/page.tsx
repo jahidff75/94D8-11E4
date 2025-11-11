@@ -18,7 +18,7 @@ export default function ReferAndEarnPage() {
     const { user } = useUser();
     const { toast } = useToast();
 
-    const referralCode = user ? `DOXPOW${user.uid.slice(0, 8).toUpperCase()}` : 'LOADING...';
+    const referralCode = user ? `SCA${user.uid.slice(0, 8).toUpperCase()}` : 'LOADING...';
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(referralCode);
@@ -31,8 +31,8 @@ export default function ReferAndEarnPage() {
     const handleShare = () => {
         if (navigator.share) {
             navigator.share({
-                title: 'Join me on Doxpow Arena!',
-                text: `I'm playing amazing games on Doxpow Arena. Join using my referral code ${referralCode} and get a joining bonus!`,
+                title: 'Join me on Sc Arena!',
+                text: `I'm playing amazing games on Sc Arena. Join using my referral code ${referralCode} and get a joining bonus!`,
                 url: window.location.href,
             }).catch((error) => console.log('Error sharing', error));
         } else {

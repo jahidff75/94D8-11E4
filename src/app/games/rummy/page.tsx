@@ -53,7 +53,7 @@ export default function RummyHomePage() {
                     data-ai-hint={gameBanner?.imageHint}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-4 flex flex-col justify-end">
-                    <h2 className="text-3xl font-bold text-white drop-shadow-lg">DOXPOW RUMMY</h2>
+                    <h2 className="text-3xl font-bold text-white drop-shadow-lg">SC RUMMY</h2>
                     <p className="text-sm text-gray-200">Play and win exciting cash prizes!</p>
                 </div>
                 </CardContent>

@@ -13,8 +13,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Doxpow Arena",
-  description: "Doxpow Arena - The Complete Visual & Experience Blueprint",
+  title: "Sc Arena",
+  description: "Sc Arena - The Complete Visual & Experience Blueprint",
 };
 
 export default function RootLayout({

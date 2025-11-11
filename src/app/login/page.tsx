@@ -81,8 +81,8 @@ export default function LoginPage() {
       userId: user.uid,
       depositCash: 0,
       winningsCash: 0,
-      bonusCash: 0,
-      totalBalance: 0,
+      bonusCash: 100,
+      totalBalance: 100,
     }, { merge: true });
   }
 
@@ -151,7 +151,7 @@ export default function LoginPage() {
     <div className="flex flex-col items-center justify-center min-h-dvh p-4">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-center text-2xl">Doxpow Arena</CardTitle>
+          <CardTitle className="text-center text-2xl">Sc Arena</CardTitle>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="login" className="w-full">
