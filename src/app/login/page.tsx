@@ -11,8 +11,6 @@ import {
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword, 
   signInAnonymously, 
-  GoogleAuthProvider, 
-  signInWithPopup, 
   getAdditionalUserInfo 
 } from 'firebase/auth';
 import { doc } from 'firebase/firestore';
@@ -113,22 +111,6 @@ export default function LoginPage() {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    setError(null);
-    if (!auth || !firestore) return;
-    const provider = new GoogleAuthProvider();
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const additionalUserInfo = getAdditionalUserInfo(result);
-      if (additionalUserInfo?.isNewUser) {
-        createNewUserDocuments(result.user);
-      }
-      // Let the useEffect handle redirection
-    } catch (e: any) {
-      handleAuthError(e);
-    }
-  };
-
   const handleAnonymousLogin = async () => {
     setError(null);
     if (!auth) return;
@@ -181,10 +163,6 @@ export default function LoginPage() {
                         </span>
                     </div>
                 </div>
-                <Button onClick={handleGoogleSignIn} variant="outline" className="w-full">
-                    <svg className="mr-2 h-4 w-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><path fill="currentColor" d="M488 261.8C488 403.3 381.5 512 244.8 512C111.8 512 0 399.4 0 258.6C0 120.3 105.8 8.1 240.8 8.1C306.4 8.1 362.8 30.6 407.5 69.5L342.8 132.3C314.1 106.7 282.8 91.1 244.8 91.1C167.3 91.1 104.2 155.2 104.2 233.9C104.2 312.5 167.3 376.6 244.8 376.6C324.5 376.6 368.1 326.4 374.3 294.6H244.8V222.8H481.1C483.9 237.3 488 249.5 488 261.8z"></path></svg>
-                    Sign in with Google
-                </Button>
                 <Button onClick={handleAnonymousLogin} variant="secondary" className="w-full">Guest Login</Button>
               </div>
             </TabsContent>
