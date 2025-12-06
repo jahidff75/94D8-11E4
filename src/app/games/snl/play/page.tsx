@@ -31,7 +31,7 @@ const GamePiece = ({ color, className }: { color: string, className?: string }) 
 // Dice Component
 const Dice = ({ value, isRolling }: { value: number, isRolling: boolean }) => (
   <div className={cn("w-16 h-16 bg-white rounded-xl flex items-center justify-center text-4xl font-bold text-black shadow-lg transition-transform duration-300", isRolling && "animate-spin")}>
-    {value}
+    {isRolling ? <Dices/> : value}
   </div>
 );
 
@@ -50,16 +50,16 @@ const ladders: { [key: number]: number } = {
 
 const initialPlayers = [
     { id: 0, name: 'You', color: '#1e88e5', avatar: 'https://i.pravatar.cc/150?u=you', position: 1 },
-    { id: 1, name: 'Riya', color: '#e53935', avatar: 'https://i.pravatar.cc/150?u=riya', position: 1 },
-    { id: 2, name: 'Mithun', color: '#43a047', avatar: 'https://i.pravatar.cc/150?u=mithun', position: 1 },
-    { id: 3, name: 'Pooja', color: '#fdd835', avatar: 'https://i.pravatar.cc/150?u=pooja', position: 1 },
+    { id: 1, name: 'Bot Riya', color: '#e53935', avatar: 'https://i.pravatar.cc/150?u=riya', position: 1 },
+    { id: 2, name: 'Bot Mithun', color: '#43a047', avatar: 'https://i.pravatar.cc/150?u=mithun', position: 1 },
+    { id: 3, name: 'Bot Pooja', color: '#fdd835', avatar: 'https://i.pravatar.cc/150?u=pooja', position: 1 },
 ];
 
 
 export default function SnakeAndLadderGamePage() {
   const [players, setPlayers] = useState(initialPlayers);
   const [currentTurn, setCurrentTurn] = useState(0); // Player index
-  const [diceValue, setDiceValue] = useState(6);
+  const [diceValue, setDiceValue] = useState(1);
   const [isRolling, setIsRolling] = useState(false);
   const [winner, setWinner] = useState<typeof initialPlayers[0] | null>(null);
   const [gameMessage, setGameMessage] = useState("Your turn to roll the dice!");
@@ -69,10 +69,14 @@ export default function SnakeAndLadderGamePage() {
     if (isRolling || winner || currentTurn !== 0) return;
 
     setIsRolling(true);
-    const roll = Math.floor(Math.random() * 6) + 1;
+    let roll = 0;
+    const rollInterval = setInterval(() => {
+      roll = Math.floor(Math.random() * 6) + 1;
+      setDiceValue(roll);
+    }, 100);
     
     setTimeout(() => {
-        setDiceValue(roll);
+        clearInterval(rollInterval);
         setIsRolling(false);
         movePlayer(currentTurn, roll);
     }, 1000);
@@ -81,24 +85,26 @@ export default function SnakeAndLadderGamePage() {
   // Move player logic
   const movePlayer = (playerIndex: number, roll: number) => {
     setPlayers(prevPlayers => {
-      const newPlayers = [...prevPlayers];
+      let newPlayers = [...prevPlayers];
       const player = newPlayers[playerIndex];
       
       if (player.position + roll <= totalSquares) {
         let newPosition = player.position + roll;
+        player.position = newPosition;
+        setPlayers([...newPlayers]); // Update position immediately for animation
         
         // Check for snakes or ladders
         setTimeout(() => {
             if (snakes[newPosition]) {
-                setGameMessage(`${player.name} got bitten by a snake at ${newPosition}!`);
+                setGameMessage(`${player.name} got bitten by a snake!`);
                 newPosition = snakes[newPosition];
             } else if (ladders[newPosition]) {
-                setGameMessage(`${player.name} climbed a ladder from ${newPosition}!`);
+                setGameMessage(`${player.name} climbed a ladder!`);
                 newPosition = ladders[newPosition];
             }
             
-            const updatedPlayers = prevPlayers.map(p => p.id === player.id ? {...p, position: newPosition} : p);
-            setPlayers(updatedPlayers);
+            const finalPlayers = newPlayers.map(p => p.id === player.id ? {...p, position: newPosition} : p);
+            setPlayers(finalPlayers);
 
             // Check for winner
             if (newPosition === totalSquares) {
@@ -128,16 +134,25 @@ export default function SnakeAndLadderGamePage() {
 
   // Bot logic
   useEffect(() => {
-    if (winner) return;
+    if (winner || isRolling) return;
     if (currentTurn !== 0) { // If it's a bot's turn
         const botTurnTimeout = setTimeout(() => {
-            const roll = Math.floor(Math.random() * 6) + 1;
-            setDiceValue(roll);
-            movePlayer(currentTurn, roll);
+            setIsRolling(true);
+            let roll = 0;
+            const rollInterval = setInterval(() => {
+              roll = Math.floor(Math.random() * 6) + 1;
+              setDiceValue(roll);
+            }, 100);
+            
+            setTimeout(() => {
+                clearInterval(rollInterval);
+                setIsRolling(false);
+                movePlayer(currentTurn, roll);
+            }, 1000);
         }, 2500); // Bots take some time to "think"
         return () => clearTimeout(botTurnTimeout);
     }
-  }, [currentTurn, winner]);
+  }, [currentTurn, winner, isRolling]);
 
   // --- Rendering Functions ---
 
@@ -161,18 +176,14 @@ export default function SnakeAndLadderGamePage() {
         squares.push(
             <div key={i} className={cn("relative flex items-center justify-center border border-black/20", isEven ? 'bg-amber-100' : 'bg-emerald-100')}>
                 <span className="absolute top-0 left-1 text-xs font-bold text-black/40">{squareNumber}</span>
-                <div className="flex flex-wrap gap-1 p-1">
+                <div className="flex flex-wrap gap-1 p-1 z-10">
                     {playersOnSquare.map(p => <GamePiece key={p.id} color={p.color} />)}
                 </div>
                  {snakes[squareNumber] && (
-                    <svg className="absolute w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                        <path d="M50 0 C 80 20, 20 80, 50 100" stroke="#E53935" strokeWidth="5" fill="none" strokeLinecap="round"/>
-                    </svg>
+                    <img src="https://www.freeiconspng.com/thumbs/snake-png/snake-png-transparent-picture-11.png" className="absolute h-full w-full object-contain" style={{transform: 'rotate(180deg)'}}/>
                 )}
                 {ladders[squareNumber] && (
-                    <svg className="absolute w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                       <path d="M20 90 L 80 10" stroke="#4CAF50" strokeWidth="5" fill="none" strokeLinecap="round"/>
-                    </svg>
+                    <img src="https://cdn.pixabay.com/photo/2020/03/25/11/02/ladder-4966953_960_720.png" className="absolute h-full w-full object-contain" />
                 )}
             </div>
         );
@@ -203,7 +214,7 @@ export default function SnakeAndLadderGamePage() {
                     {renderBoard()}
                  </div>
                  {winner && (
-                     <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center z-10">
+                     <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center z-20">
                         <Crown className="w-24 h-24 text-yellow-400" />
                         <h2 className="text-3xl font-bold text-white mt-4">{winner.name} Wins!</h2>
                         <Link href="/games/snl" passHref>

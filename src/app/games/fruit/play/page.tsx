@@ -1,35 +1,99 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Star, Timer } from 'lucide-react';
+import { ArrowLeft, Star, Timer, Bomb, XCircle } from 'lucide-react';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const Fruit = ({ type, isSliced }: { type: string, isSliced: boolean }) => {
-    return <div className={`text-6xl transition-transform duration-300 ${isSliced ? 'rotate-45 opacity-0' : ''}`}>{type}</div>
+    return <div className={`text-6xl transition-all duration-150 ${isSliced ? 'rotate-45 opacity-50' : ''}`}>{type}</div>
+}
+
+type FruitObject = {
+    id: number;
+    type: string;
+    isSliced: boolean;
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
 }
 
 export default function GamePlayPage() {
-    const [status, setStatus] = useState('Game is starting...');
     const [isGameStarted, setIsGameStarted] = useState(false);
-    const [slicedFruits, setSlicedFruits] = useState<number[]>([]);
+    const [score, setScore] = useState(0);
+    const [timeLeft, setTimeLeft] = useState(60);
+    const [gameOver, setGameOver] = useState(false);
+    const [fruits, setFruits] = useState<FruitObject[]>([]);
+    const gameAreaRef = useRef<HTMLDivElement>(null);
+    const fruitIdCounter = useRef(0);
 
-    const fruits = ['🍎', '🍌', '🍉', '🍓', '🥝', '💣'];
+    const fruitTypes = ['🍎', '🍌', '🍉', '🍓', '🥝', '🍍', '🍑', '💣'];
 
-     useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsGameStarted(true);
-        }, 1500);
-        return () => clearTimeout(timer);
+    useEffect(() => {
+        const startTimer = setTimeout(() => setIsGameStarted(true), 1500);
+        return () => clearTimeout(startTimer);
     }, []);
 
-    const handleSlice = (index: number) => {
-        if(fruits[index] === '💣') {
-            // End game logic
-            alert('Game Over! You hit a bomb.');
-            return;
-        }
-        setSlicedFruits(prev => [...prev, index]);
+    useEffect(() => {
+        if (!isGameStarted || gameOver) return;
+
+        const gameInterval = setInterval(() => {
+            // Update fruit positions
+            setFruits(prevFruits => 
+                prevFruits.map(f => ({
+                    ...f,
+                    x: f.x + f.vx,
+                    y: f.y + f.vy,
+                    vy: f.vy + 0.1 // Gravity
+                })).filter(f => f.y < 500) // Remove fruits that fall off screen
+            );
+        }, 16); // ~60 FPS
+
+        const fruitSpawnInterval = setInterval(() => {
+            const newFruit: FruitObject = {
+                id: fruitIdCounter.current++,
+                type: fruitTypes[Math.floor(Math.random() * fruitTypes.length)],
+                isSliced: false,
+                x: Math.random() * 300,
+                y: 450,
+                vx: Math.random() * 4 - 2,
+                vy: -10 - Math.random() * 5,
+            };
+            setFruits(prev => [...prev, newFruit]);
+        }, 1000);
+
+        const timerInterval = setInterval(() => {
+            setTimeLeft(prev => {
+                if (prev <= 1) {
+                    setGameOver(true);
+                    clearInterval(timerInterval);
+                    return 0;
+                }
+                return prev - 1;
+            });
+        }, 1000);
+
+        return () => {
+            clearInterval(gameInterval);
+            clearInterval(fruitSpawnInterval);
+            clearInterval(timerInterval);
+        };
+    }, [isGameStarted, gameOver]);
+
+    const handleSlice = (id: number) => {
+        if (gameOver) return;
+        setFruits(prevFruits => prevFruits.map(f => {
+            if (f.id === id && !f.isSliced) {
+                if (f.type === '💣') {
+                    setGameOver(true);
+                    return { ...f, isSliced: true };
+                }
+                setScore(s => s + 10);
+                return { ...f, isSliced: true };
+            }
+            return f;
+        }));
     }
 
   return (
@@ -47,7 +111,7 @@ export default function GamePlayPage() {
       {!isGameStarted ? (
             <main className="flex-1 flex items-center justify-center">
                 <div className="text-center space-y-4">
-                    <h2 className="text-2xl font-bold animate-pulse text-orange-600">{status}</h2>
+                    <h2 className="text-2xl font-bold animate-pulse text-orange-600">Game is starting...</h2>
                     <Timer className="w-16 h-16 mx-auto animate-spin text-orange-500" />
                 </div>
             </main>
@@ -56,11 +120,11 @@ export default function GamePlayPage() {
              <div className="w-full flex justify-between items-center bg-black/30 text-white p-2 rounded-lg">
                 <div>
                     <p className="text-sm">SCORE</p>
-                    <p className="text-2xl font-bold">2,450</p>
+                    <p className="text-2xl font-bold">{score}</p>
                 </div>
                 <div>
                     <p className="text-sm">TIME</p>
-                    <p className="text-2xl font-bold">01:05</p>
+                    <p className="text-2xl font-bold">{timeLeft}</p>
                 </div>
                  <div>
                     <p className="text-sm">BEST</p>
@@ -68,35 +132,36 @@ export default function GamePlayPage() {
                 </div>
              </div>
 
-             <div className="w-full flex-1 my-4 flex items-center justify-center gap-4">
-                 {fruits.map((fruit, i) => (
-                    <div key={i} className="animate-fruit-toss" style={{animationDelay: `${i*0.5}s`}} onClick={() => handleSlice(i)}>
-                        <Fruit type={fruit} isSliced={slicedFruits.includes(i)} />
+             <div ref={gameAreaRef} className="w-full flex-1 my-4 relative overflow-hidden">
+                 {fruits.map(fruit => (
+                    <div 
+                        key={fruit.id} 
+                        className="absolute cursor-pointer"
+                        style={{ top: fruit.y, left: fruit.x }}
+                        onMouseEnter={() => handleSlice(fruit.id)}
+                        onClick={() => handleSlice(fruit.id)}
+                    >
+                        <Fruit type={fruit.type} isSliced={fruit.isSliced} />
                     </div>
                  ))}
              </div>
 
+             {gameOver && (
+                 <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center z-20">
+                    <XCircle className="w-24 h-24 text-red-500" />
+                    <h2 className="text-4xl font-bold text-white mt-4">Game Over</h2>
+                    <p className="text-xl text-white">Your score: {score}</p>
+                    <Link href="/games/fruit" passHref>
+                        <Button className="mt-6">Play Again</Button>
+                    </Link>
+                 </div>
+             )}
+
              <div className="w-full max-w-md p-2 text-center">
                 <p className="font-bold text-lg text-white">Slice the fruits, avoid the bombs!</p>
             </div>
-             <style jsx>{`
-                @keyframes fruit-toss {
-                    0% { transform: translateY(200%) rotate(0deg); opacity: 1; }
-                    50% { transform: translateY(-50%) rotate(180deg); opacity: 1; }
-                    100% { transform: translateY(200%) rotate(360deg); opacity: 1; }
-                }
-                .animate-fruit-toss {
-                    position: absolute;
-                    animation-name: fruit-toss;
-                    animation-duration: 3s;
-                    animation-timing-function: ease-out;
-                    animation-iteration-count: infinite;
-                    cursor: pointer;
-                }
-            `}</style>
         </main>
       )}
-
     </div>
   );
 }

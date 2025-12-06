@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { ArrowLeft, Crown, Send, Settings, Coins } from 'lucide-react';
+import { ArrowLeft, Crown, Send, Settings, Coins, Dices, Timer } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
@@ -45,29 +45,51 @@ const CarromPiece = ({ type, className }: { type: 'black' | 'white' | 'red' | 's
 export default function CarromGamePage() {
     const [status, setStatus] = useState('Waiting for opponent...');
     const [isGameStarted, setIsGameStarted] = useState(false);
-    const [currentTurn, setCurrentTurn] = useState(''); // Player name
     const [messages, setMessages] = useState<{ user: string; text: string }[]>([]);
     const [newMessage, setNewMessage] = useState('');
 
-    const players = [
+    const initialPlayers = [
         { id: 0, name: 'You', avatar: 'https://i.pravatar.cc/150?u=you', score: 0, color: '#1e88e5' },
-        { id: 1, name: 'Rohan', avatar: 'https://i.pravatar.cc/150?u=rohan', score: 0, color: '#e53935' },
+        { id: 1, name: 'Bot Rohan', avatar: 'https://i.pravatar.cc/150?u=rohan', score: 0, color: '#e53935' },
     ];
+    const [players, setPlayers] = useState(initialPlayers);
+    const [currentTurn, setCurrentTurn] = useState(players[0].name);
 
     useEffect(() => {
         setTimeout(() => {
             setIsGameStarted(true);
-            setStatus("Rohan's Turn");
-            setCurrentTurn('Rohan');
+            setStatus("Your Turn");
+            setCurrentTurn(players[0].name);
         }, 3000);
     }, []);
+    
+    // AI Logic
+    useEffect(() => {
+      if (isGameStarted && currentTurn === 'Bot Rohan') {
+        const aiMoveTimeout = setTimeout(() => {
+          // Simulate AI move
+          setPlayers(prev => prev.map(p => p.id === 1 ? {...p, score: p.score + (Math.random() > 0.5 ? 10 : 0)}: p));
+          setStatus("You's Turn");
+          setCurrentTurn('You');
+        }, 2000);
+        return () => clearTimeout(aiMoveTimeout);
+      }
+    }, [currentTurn, isGameStarted]);
+
+    const handlePlayerMove = () => {
+      if(currentTurn !== 'You') return;
+      // Simulate player move
+      setPlayers(prev => prev.map(p => p.id === 0 ? {...p, score: p.score + (Math.random() > 0.3 ? 10 : 0)}: p));
+      setStatus("Bot Rohan's Turn");
+      setCurrentTurn('Bot Rohan');
+    }
 
     const handleSendMessage = () => {
         if(newMessage.trim()){
             setMessages([...messages, {user: 'You', text: newMessage}]);
             setNewMessage('');
             setTimeout(() => {
-                setMessages(prev => [...prev, {user: 'Rohan', text: 'Good luck!'}])
+                setMessages(prev => [...prev, {user: 'Bot Rohan', text: 'Good luck!'}])
             }, 1000);
         }
     }
@@ -114,7 +136,7 @@ export default function CarromGamePage() {
             </div>
 
             {/* Striker */}
-            <CarromPiece type="striker" className="absolute left-1/2 -translate-x-1/2 bottom-[4.5rem]" />
+            <CarromPiece type="striker" className="absolute left-1/2 -translate-x-1/2 bottom-[4.5rem] cursor-pointer" onClick={handlePlayerMove} />
         </div>
     );
 
@@ -138,7 +160,7 @@ export default function CarromGamePage() {
                         <span className="absolute -bottom-2 -left-4 text-4xl">vs</span>
                         <Avatar className="w-24 h-24 border-4 border-red-500 absolute top-8 left-16"><AvatarImage src={players[1].avatar} /></Avatar>
                     </div>
-                     <h2 className="text-2xl font-bold mt-20 bg-black/50 px-4 py-2 rounded-lg">{status}</h2>
+                     <h2 className="text-2xl font-bold mt-20 bg-black/50 px-4 py-2 rounded-lg flex items-center gap-2"><Timer className="animate-spin"/> {status}</h2>
                 </div>
             ) : (
                 <main className="flex-1 flex flex-col p-2 space-y-2 justify-between">
@@ -146,6 +168,7 @@ export default function CarromGamePage() {
 
                     <div className="relative flex items-center justify-center">
                         {renderBoard()}
+                         <p className="absolute top-0 text-white font-bold text-lg bg-black/50 px-3 py-1 rounded-md">{status}</p>
                     </div>
                     
                     <PlayerInfo name={players[0].name} avatarUrl={players[0].avatar} isTurn={currentTurn === players[0].name} score={players[0].score} color={players[0].color} />

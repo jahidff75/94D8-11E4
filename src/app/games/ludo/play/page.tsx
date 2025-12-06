@@ -46,8 +46,8 @@ const LudoPiece = ({ color }: { color: string }) => (
 
 // Main Ludo Game Page Component
 export default function LudoGamePlayPage() {
-  const [status, setStatus] = useState('Waiting for players... 2/4');
-  const [playersJoined, setPlayersJoined] = useState(2);
+  const [status, setStatus] = useState('Waiting for players... 1/4');
+  const [playersJoined, setPlayersJoined] = useState(1);
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [diceValue, setDiceValue] = useState<number | null>(null);
   const [currentTurn, setCurrentTurn] = useState(''); // Player name
@@ -55,50 +55,70 @@ export default function LudoGamePlayPage() {
   const [newMessage, setNewMessage] = useState('');
 
   const players = [
-    { name: 'Jenny', color: '#e53935', avatar: 'https://i.pravatar.cc/150?u=jenny', country: 'India', flag: <INFlag /> }, // red
-    { name: 'Messi', color: '#43a047', avatar: 'https://i.pravatar.cc/150?u=messi', country: 'UK', flag: <UKFlag /> }, // green
-    { name: 'You', color: '#1e88e5', avatar: 'https://i.pravatar.cc/150?u=you', country: 'Sudan', flag: <SDFlag /> },  // blue
-    { name: 'Praks', color: '#fdd835', avatar: 'https://i.pravatar.cc/150?u=praks', country: 'USA', flag: <USFlag /> }  // yellow
+    { name: 'You', color: '#1e88e5', avatar: 'https://i.pravatar.cc/150?u=you', country: 'IN', flag: <INFlag /> },  // blue
+    { name: 'Bot Messi', color: '#43a047', avatar: 'https://i.pravatar.cc/150?u=messi', country: 'UK', flag: <UKFlag /> }, // green
+    { name: 'Bot Jenny', color: '#e53935', avatar: 'https://i.pravatar.cc/150?u=jenny', country: 'US', flag: <USFlag /> }, // red
+    { name: 'Bot Praks', color: '#fdd835', avatar: 'https://i.pravatar.cc/150?u=praks', country: 'SD', flag: <SDFlag /> }  // yellow
   ];
 
   useEffect(() => {
+    // Simulate players joining
     if (playersJoined < 4) {
       const interval = setInterval(() => {
         setPlayersJoined(prev => {
-          if (prev < 4) {
-            const newCount = prev + 1;
+          const newCount = prev + 1;
+          if (newCount <= 4) {
             setStatus(`Waiting for players... ${newCount}/4`);
             return newCount;
           }
           clearInterval(interval);
           return prev;
         });
-      }, 2000);
+      }, 1000);
       return () => clearInterval(interval);
     } else {
-      setTimeout(() => {
-        setStatus('Match Starting...');
+      // All players joined, start the game
+      if (!isGameStarted) {
         setTimeout(() => {
-          setIsGameStarted(true);
-          setStatus("Jenny's Turn");
-          setCurrentTurn('Jenny');
-        }, 1500);
-      }, 1000);
+          setStatus('Match Starting...');
+          setTimeout(() => {
+            setIsGameStarted(true);
+            const firstPlayer = players[0].name;
+            setCurrentTurn(firstPlayer);
+            setStatus(`${firstPlayer}'s Turn`);
+          }, 1500);
+        }, 1000);
+      }
     }
-  }, [playersJoined]);
+  }, [playersJoined, isGameStarted]);
+  
+  // AI player logic
+  useEffect(() => {
+      if (isGameStarted && currentTurn && currentTurn !== 'You') {
+          const botTurnTimeout = setTimeout(() => {
+              handleDiceRoll();
+          }, 2000); // AI "thinks" for 2 seconds
+          return () => clearTimeout(botTurnTimeout);
+      }
+  }, [currentTurn, isGameStarted]);
 
   const handleDiceRoll = () => {
-    if (currentTurn !== 'You') return; // Only roll if it's your turn
     const randomNumber = Math.floor(Math.random() * 6) + 1;
     setDiceValue(randomNumber);
+    
     // Simulate server logic and turn change
     setTimeout(() => {
-        const nextPlayerIndex = (players.findIndex(p => p.name === currentTurn) + 1) % players.length;
-        const nextPlayer = players[nextPlayerIndex];
-        setCurrentTurn(nextPlayer.name);
-        setStatus(`${nextPlayer.name}'s Turn`);
+        const currentPlayerIndex = players.findIndex(p => p.name === currentTurn);
+        if (randomNumber !== 6) {
+          const nextPlayerIndex = (currentPlayerIndex + 1) % players.length;
+          const nextPlayer = players[nextPlayerIndex];
+          setCurrentTurn(nextPlayer.name);
+          setStatus(`${nextPlayer.name}'s Turn`);
+        } else {
+          setStatus(`${currentTurn} rolled a 6! Roll again.`);
+        }
         setDiceValue(null);
-    }, 2000);
+    }, 1500);
   };
 
   const handleSendMessage = () => {
@@ -107,7 +127,7 @@ export default function LudoGamePlayPage() {
           setNewMessage('');
           // Simulate other player message
           setTimeout(() => {
-              setMessages(prev => [...prev, {user: 'Messi', text: 'Haha!'}])
+              setMessages(prev => [...prev, {user: 'Bot Messi', text: 'Haha!'}])
           }, 1000);
       }
   }
@@ -210,7 +230,7 @@ export default function LudoGamePlayPage() {
 
       return (
         <div className="w-16 h-16 bg-white rounded-xl flex items-center justify-center p-1 relative shadow-md">
-            {dots}
+            {value ? dots : <Dices className="w-8 h-8 animate-pulse"/>}
         </div>
       )
   }
@@ -239,7 +259,7 @@ export default function LudoGamePlayPage() {
       ) : (
         <main className="flex-1 flex flex-col p-2 space-y-2 justify-between">
           <div className="grid grid-cols-2 gap-4">
-            <PlayerInfo name={players[0].name} color={players[0].color} isTurn={currentTurn === players[0].name} avatarUrl={players[0].avatar} country={players[0].country} flag={players[0].flag} />
+            <PlayerInfo name={players[2].name} color={players[2].color} isTurn={currentTurn === players[2].name} avatarUrl={players[2].avatar} country={players[2].country} flag={players[2].flag} />
             <PlayerInfo name={players[1].name} color={players[1].color} isTurn={currentTurn === players[1].name} avatarUrl={players[1].avatar} country={players[1].country} flag={players[1].flag} />
           </div>
 
@@ -255,17 +275,12 @@ export default function LudoGamePlayPage() {
           
            <div className="grid grid-cols-2 gap-4">
             <PlayerInfo name={players[3].name} color={players[3].color} isTurn={currentTurn === players[3].name} avatarUrl={players[3].avatar} country={players[3].country} flag={players[3].flag} />
-            <PlayerInfo name={players[2].name} color={players[2].color} isTurn={currentTurn === players[2].name} avatarUrl={players[2].avatar} country={players[2].country} flag={players[2].flag} />
+            <PlayerInfo name={players[0].name} color={players[0].color} isTurn={currentTurn === players[0].name} avatarUrl={players[0].avatar} country={players[0].country} flag={players[0].flag} />
           </div>
 
           <div className="flex items-center justify-around p-2 bg-black/30 rounded-xl">
              <div className="flex flex-col items-center">
-                {diceValue ? <Dice value={diceValue} /> : (
-                     <Button onClick={handleDiceRoll} disabled={currentTurn !== 'You'} className="bg-gradient-to-br from-yellow-400 to-orange-500 text-black font-bold text-xl px-8 py-8 rounded-2xl shadow-lg border-2 border-white disabled:opacity-50">
-                        <Dices className="w-8 h-8 mr-2"/>
-                        ROLL
-                    </Button>
-                )}
+                <Dice value={diceValue} />
              </div>
 
              <div className="flex gap-2">
@@ -278,6 +293,10 @@ export default function LudoGamePlayPage() {
                 />
                 <Button onClick={handleSendMessage} variant="secondary" size="icon" className="bg-blue-600 hover:bg-blue-700 text-white"><Send /></Button>
             </div>
+              <Button onClick={handleDiceRoll} disabled={currentTurn !== 'You' || diceValue !== null} className="bg-gradient-to-br from-yellow-400 to-orange-500 text-black font-bold text-lg px-6 py-6 rounded-2xl shadow-lg border-2 border-white disabled:opacity-50">
+                  <Dices className="w-6 h-6 mr-2"/>
+                  ROLL
+              </Button>
           </div>
         </main>
       )}
