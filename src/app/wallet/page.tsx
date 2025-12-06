@@ -1,7 +1,7 @@
 'use client';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Info, Gem, Gift, ChevronRight, Send } from "lucide-react";
+import { Info, Gem, Gift, ChevronRight, Send, Star } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useDoc, useUser, useFirestore, useMemoFirebase } from "@/firebase";
 import { doc } from "firebase/firestore";
@@ -12,6 +12,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useState } from "react";
 
 const topUpPackages = [
   { diamonds: 100, price: 80, bonus: 10, popular: false },
@@ -21,10 +22,18 @@ const topUpPackages = [
   { diamonds: 5000, price: 3200, bonus: 800, popular: false },
 ];
 
+const redeemPackages = [
+    { id: 'redeem500', diamonds: 500, value: 400, bestValue: true },
+    { id: 'redeem1000', diamonds: 1000, value: 800, bestValue: false },
+    { id: 'redeem2500', diamonds: 2500, value: 2100, bestValue: false },
+    { id: 'redeem5000', diamonds: 5000, value: 4500, bestValue: false },
+];
+
 export default function WalletPage() {
   const { user } = useUser();
   const firestore = useFirestore();
   const { toast } = useToast();
+  const [selectedRedeem, setSelectedRedeem] = useState<string | null>(redeemPackages.find(p => p.bestValue)?.id || null);
 
   const walletRef = useMemoFirebase(() => {
     if (!user) return null;
@@ -44,9 +53,29 @@ export default function WalletPage() {
   }
   
   const handleRedeem = () => {
+    if (!selectedRedeem) {
+        toast({
+            variant: "destructive",
+            title: "Uh oh!",
+            description: "Please select a redeem package.",
+        });
+        return;
+    }
+    const pkg = redeemPackages.find(p => p.id === selectedRedeem);
+    if (!pkg) return;
+
+    if ((walletData?.winningsCash || 0) < pkg.diamonds) {
+        toast({
+            variant: "destructive",
+            title: "Insufficient Winnings",
+            description: `You need at least ${pkg.diamonds} winning diamonds to redeem this package.`,
+        });
+        return;
+    }
+
     toast({
         title: "Redemption Request Sent!",
-        description: `Your request for a Google Play redeem code is being processed.`,
+        description: `Your request for a ₹${pkg.value} Google Play redeem code is being processed.`,
         variant: 'default'
     });
   }
@@ -141,18 +170,41 @@ export default function WalletPage() {
                     <CardHeader>
                         <CardTitle>Redeem for Google Play Code</CardTitle>
                         <CardDescription>
-                            Convert your winning diamonds into Google Play redeem codes. 1 Diamond = ₹1.
+                            Select a package to convert your winning diamonds into Google Play codes.
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                        <div className="space-y-2">
-                            <Label htmlFor="redeem-amount">Diamonds to Redeem</Label>
-                            <Input id="redeem-amount" type="number" placeholder="e.g., 500" />
+                        <div className="space-y-3">
+                            {redeemPackages.map((pkg) => (
+                                <div 
+                                    key={pkg.id} 
+                                    className={cn(
+                                        "flex items-center justify-between p-3 border rounded-lg cursor-pointer transition-colors",
+                                        selectedRedeem === pkg.id 
+                                            ? "border-primary bg-primary/10" 
+                                            : "border-border hover:bg-secondary/50"
+                                    )}
+                                    onClick={() => setSelectedRedeem(pkg.id)}
+                                >
+                                    <div className="flex items-center gap-3">
+                                        {pkg.bestValue && <Star className="w-5 h-5 text-yellow-400 fill-yellow-400"/>}
+                                        <div>
+                                            <p className="font-semibold">Get ₹{pkg.value} Code</p>
+                                            <p className="text-sm text-muted-foreground flex items-center gap-1">
+                                                For <Gem className="w-3 h-3"/> {pkg.diamonds} Diamonds
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className={cn("w-5 h-5 rounded-full border-2 flex items-center justify-center", selectedRedeem === pkg.id ? 'border-primary' : 'border-muted-foreground')}>
+                                       {selectedRedeem === pkg.id && <div className="w-2.5 h-2.5 rounded-full bg-primary"></div>}
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                         <div className="text-sm text-muted-foreground">
-                            You can redeem a maximum of <span className="font-bold text-success">{(walletData?.winningsCash || 0).toLocaleString()}</span> winning diamonds.
+                            You can redeem from your winnings balance of <span className="font-bold text-success">{(walletData?.winningsCash || 0).toLocaleString()}</span> diamonds.
                         </div>
-                        <Button onClick={handleRedeem} className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
+                        <Button onClick={handleRedeem} disabled={!selectedRedeem} className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
                            <Send className="mr-2 h-4 w-4" />
                             Request Redeem Code
                         </Button>
